@@ -931,6 +931,54 @@ def trap(height):
 #space: O(1)
 
 
+'''NeetCode 15'''
+'''Best time to buy and sell stock'''
+'''You are given an array prices where prices[i] is the price of a given stock on the ith day.
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+'''
+
+# prices = [7, 1, 5, 3, 6, 4]
+'''Two Pointer Solution'''
+def maxProfit(prices):
+
+    L, R = 0, 1 # left = buy. right = sell
+    maxprofit = 0
+
+    while R < len(prices):
+        if prices[L] > prices[R]:
+            L = R
+            R += 1
+        else:
+            maxprofit = max(maxprofit, prices[R] - prices[L])
+            R += 1
+    return maxprofit
+
+
+'''Using One variable'''
+
+def maxProfit(prices):
+
+    min_price = float('inf')
+    max_profit = 0
+
+    for price in prices:
+        if price < min_price:
+            min_price = price
+        else:
+            max_profit = max(max_profit, price - min_price)
+
+    return max_profit
+
+
+
+print(maxProfit([7, 1, 5, 3, 6, 4]))
+
+#Time: O(n)
+#Space: O(1)
+
+
+
+
 
 
 
