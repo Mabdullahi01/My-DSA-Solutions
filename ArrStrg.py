@@ -940,43 +940,41 @@ You want to maximize your profit by choosing a single day to buy one stock and c
 # prices = [7, 1, 5, 3, 6, 4]
 '''Two Pointer Solution'''
 def maxProfit(prices):
+    L = 0 #buy
+    R = 1 #sell
+    maxP = 0
 
-    L, R = 0, 1 # left = buy. right = sell
-    maxprofit = 0
-
-    while R < len(prices):
+    while (R < len(prices)):
         if prices[L] > prices[R]:
             L = R
             R += 1
         else:
-            maxprofit = max(maxprofit, prices[R] - prices[L])
+            profit = prices[R] - prices[L]
+            maxP = max(maxP, profit)
             R += 1
-    return maxprofit
+    return maxP
+
 
 
 '''Using One variable'''
 
 def maxProfit(prices):
 
-    min_price = float('inf')
-    max_profit = 0
+   minimum_price = float('inf')
+   maxP = 0
 
-    for price in prices:
-        if price < min_price:
-            min_price = price
-        else:
-            max_profit = max(max_profit, price - min_price)
-
-    return max_profit
-
-
+   for price in prices:
+       if price < minimum_price:
+           minimum_price = price
+       else:
+           maxP = max(maxP, price - minimum_price)
+   return maxP
 
 print(maxProfit([7, 1, 5, 3, 6, 4]))
 
+
 #Time: O(n)
 #Space: O(1)
-
-
 
 
 
