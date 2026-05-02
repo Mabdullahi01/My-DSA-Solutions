@@ -970,13 +970,39 @@ def maxProfit(prices):
            maxP = max(maxP, price - minimum_price)
    return maxP
 
-print(maxProfit([7, 1, 5, 3, 6, 4]))
+
 
 
 #Time: O(n)
 #Space: O(1)
 
+"NeetCode 16"
+'''Longest substring without repeating character'''
+'''Given a string s, find the length of the longest substring without duplicate characters.'''
 
+#input: s = "abcabcbb"
+#Output: 3
+
+#Input: s = "pwwkew"
+#Output: 3
+
+
+'Brute Force Solution'
+def lengthOfLongestSubstring(s):
+    max_length = 0
+    for i in range(len(s)):
+        unique_chars = set()
+        for j in range(i, len(s)):
+            if s[j] in unique_chars:
+                break
+            unique_chars.add(s[j])
+            max_length = max(max_length, j - i + 1)
+
+    return max_length
+print(lengthOfLongestSubstring('abcabcbb'))
+
+# Time complexity is O(n^2)
+# Space complexity is O(n)
 
 
 
