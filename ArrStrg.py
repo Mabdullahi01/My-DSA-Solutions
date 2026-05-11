@@ -991,24 +991,44 @@ def maxProfit(prices):
 def lengthOfLongestSubstring(s):
     max_length = 0
     for i in range(len(s)):
-        unique_chars = set()
+        unique_char = set()
         for j in range(i, len(s)):
-            if s[j] in unique_chars:
-                break
-            unique_chars.add(s[j])
-            max_length = max(max_length, j - i + 1)
 
+            if s[j] in unique_char:
+                break
+            unique_char.add(s[j])
+            max_length = max(max_length, j - i + 1)
     return max_length
-print(lengthOfLongestSubstring('abcabcbb'))
 
 # Time complexity is O(n^2)
 # Space complexity is O(n)
 
+'Sliding Window Solution'
 
 
+def lengthOfLongestSubstring(s):
 
+    hashmap = {}
+    L = 0
+    max_length = 0
 
+    for R in range(len(s)):
+        hashmap[s[R]] = hashmap.get(s[R], 0) + 1
+        while hashmap[s[R]] > 1:
+            hashmap[s[L]] -= 1
 
+            if hashmap[s[L]] == 0:
+                del hashmap[s[L]]
+            L += 1
+
+        max_length = max(max_length, R - L + 1)
+
+    return max_length
+
+print(lengthOfLongestSubstring("pwwkew"))
+
+# Time complexity is O(2n) = O(n) The right pointer iterate through the string once, and the while loop moves the left pointer only when needed, meaning each character is visited at most twice
+# Space complexity is O(min(n,k)), where n is the number of unique characters, k is 26
 
 
 
