@@ -1003,9 +1003,8 @@ def lengthOfLongestSubstring(s):
 # Time complexity is O(n^2)
 # Space complexity is O(n)
 
+
 'Sliding Window Solution'
-
-
 def lengthOfLongestSubstring(s):
 
     hashmap = {}
@@ -1025,26 +1024,61 @@ def lengthOfLongestSubstring(s):
 
     return max_length
 
-print(lengthOfLongestSubstring("pwwkew"))
+
 
 # Time complexity is O(2n) = O(n) The right pointer iterate through the string once, and the while loop moves the left pointer only when needed, meaning each character is visited at most twice
 # Space complexity is O(min(n,k)), where n is the number of unique characters, k is 26
 
+"NeetCode 17"
+'''Longest repeating character replacement'''
+'''You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase
+ English character. You can perform this operation at most k times.
+ Return the length of the longest substring containing the same letter you can get after performing the above operations.'''
+
+# Input: s = "ABABBA", k = 2
+# Output: 5
+
+
+'Sliding window technique'
+def characterReplacement(s, k):
+    hashmap = {}
+    L = 0
+    max_length = 0
+    for R in range(len(s)):
+        hashmap[s[R]] = hashmap.get(s[R], 0) + 1
+        while((R - L + 1) - max(hashmap.values())) > k:
+            hashmap[s[L]] -= 1
+            L += 1
+        max_length = max(max_length, R - L + 1)
+
+    return max_length
 
 
 
 
+# Time complexity : O(26n)
+# Space complexity : O(26)
 
 
+'More optimized sliding window'
 
 
+def characterReplacement(s, k):
+    hashmap = {}
+    L = 0
+    max_length = 0
+    max_F = 0
+    for R in range(len(s)):
+        hashmap[s[R]] = hashmap.get(s[R], 0) + 1
+        max_F = max(max_F, hashmap[s[R]])
+        while((R - L + 1) - max_F) > k:
+            hashmap[s[L]] -= 1
+            L += 1
+        max_length = max(max_length, R - L + 1)
 
+    return max_length
 
-
-
-
-
-
+print(characterReplacement("AABABBA", 1))
 
 
 
