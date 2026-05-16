@@ -1085,30 +1085,64 @@ In other words, return true if one of s1's permutations is the substring of s2''
 
 # Input: s1 = "ab", s2 = "eidbaooo"
 # Output: true
-
+'Sliding window with frequency arrays'
 def checkInclusion(s1, s2):
-    if len(s1) > len(s2): return False
+    n1 = len(s1)
+    n2 = len(s2)
+    if n1 > n2: return False
 
     s1_counts = [0] * 26
     s2_counts = [0] * 26
 
-    for i in range(len(s1)):
+    for i in range(n1):
         s1_counts[ord(s1[i]) - ord('a')] += 1
         s2_counts[ord(s2[i]) - ord('a')] += 1
 
     if s1_counts == s2_counts:
         return True
 
-    for i in range(len(s1), len(s2)):
+    for i in range(n1, n2):
         s2_counts[ord(s2[i]) - ord('a')] += 1
         s2_counts[ord(s2[i - len(s1)]) - ord('a')] -= 1
         if s1_counts == s2_counts:
             return True
     return False
 
+# Time complexity: O(n), where n is the length of s2
+# Space complexity: O(26)--> O(1)
 
 
+'Sliding window with hashmap'
 
+
+def checkInclusion(s1, s2):
+    n1 = len(s1)
+    n2 = len(s2)
+
+    if n1 > n2: return False
+
+    s1_counts = {}
+    window_count = {}
+
+    for i in range(n1):
+        s1_counts[s1[i]] = s1_counts.get(s1[i], 0) + 1
+
+    L = 0
+
+    for R in range(n2):
+        window_count[s2[R]] = window_count.get(s2[R], 0) + 1
+        if R - L + 1 > len(s1):
+            window_count[s2[L]] -= 1
+            if window_count[s2[L]] == 0:
+                del window_count[s2[L]]
+            L += 1
+        if s1_counts == window_count:
+            return True
+    return False
+
+
+#Time: O(n*k) where k is number of distinct characters in the window
+#Space: O(k)
 
 
 
