@@ -1144,7 +1144,50 @@ def checkInclusion(s1, s2):
 #Time: O(n*k) where k is number of distinct characters in the window
 #Space: O(k)
 
+'NeetCode 19'
+'Minimum window substring'
+'''Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. 
+If there is no such substring, return the empty string "".'''
 
+#Input: s = "ADOBECODEBANC", t = "ABC"
+#Output: "BANC"
+
+def minWindow(s, t):
+    if t == "": return ""
+
+    countT, window = {}, {}
+    for c in t:
+        countT[c] = countT.get(c, 0) + 1
+
+    have, need = 0, len(countT)
+    res, resLen = [-1, -1], float('inf')
+    #sliding through s
+    L = 0
+    for R in range(len(s)):
+        c = s[R]
+        window[c] = window.get(c, 0) + 1
+
+        if c in countT and window[c] == countT[c]:
+            have += 1
+
+        while have == need:
+            # update our result
+            if (R - L + 1) < resLen:
+                res = [L, R]
+                resLen = R - L + 1
+            # pop from the left of our window
+            window[s[L]] -= 1
+            if s[L] in countT and window[s[L]] < countT[s[L]]:
+                have -= 1
+            L += 1
+    # restore best window indices (L, R were moved during sliding)
+    L, R = res
+    return s[L:R+1] if resLen != float('inf') else ""
+    #return s[res[0]:res[1]+1] if resLen != float('inf') else ""
+
+
+#Time: O(n) each pointers move at most n times
+#Space: O(k) where k is the number of unique characters in t
 
 
 
