@@ -1145,7 +1145,7 @@ def checkInclusion(s1, s2):
 #Space: O(k)
 
 'NeetCode 19'
-'Minimum window substring'
+'Minimum window substring' #hard
 '''Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. 
 If there is no such substring, return the empty string "".'''
 
@@ -1189,8 +1189,37 @@ def minWindow(s, t):
 #Time: O(n) each pointers move at most n times
 #Space: O(k) where k is the number of unique characters in t
 
+'Neetcode 20'
+'Sliding window maximum' #hard
 
+'''You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. 
+Each time the sliding window moves right by one position'''
+'''Return the max sliding window.'''
 
+#Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+#Output: [3,3,5,5,6,7]
 
+from collections import deque
+
+def maxSlidingWindow(nums, k):
+    q = deque()
+    output = []
+    L = R = 0
+
+    while R < len(nums):
+        #pop smaller values from q
+        while q and nums[q[-1]] < nums[R]:
+            q.pop()
+        q.append(R)
+
+        #remove left value from window
+        if L > q[0]:
+            q.popleft()
+
+        if (R + 1) >= k:
+            output.append(nums[q[0]])
+            L += 1
+        R += 1
+    return output
 
 
