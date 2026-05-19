@@ -269,7 +269,31 @@ def makeGood(s):
 # print("Popped element:", s.pop())
 # s.display()
 
+'NeetCode 21'
+'Valid parentheses'
 
+
+'''Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid'''
+# s = "()[]{}"
+
+def isValid(s):
+    stack = []
+    hashmap = {"(":")", "{":"}", "[":"]"}
+
+    for char in s:
+        if char in hashmap:
+            stack.append(char)
+        else:
+            if not stack:
+                return False
+            previous_check = stack.pop()
+            if hashmap[previous_check] != char:
+                return False
+    return not stack
+
+
+#Time complexity is O(n)
+#Space complexity is O(n) because the stack size can grow linearly with the input size
 
 
 
