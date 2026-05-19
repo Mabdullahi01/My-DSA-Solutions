@@ -1216,10 +1216,16 @@ def maxSlidingWindow(nums, k):
         if L > q[0]:
             q.popleft()
 
-        if (R + 1) >= k:
+
+        if (R - L + 1) >= k:
             output.append(nums[q[0]])
             L += 1
         R += 1
     return output
+
+print(maxSlidingWindow([1,3,-1,-3,5,3,6,7], 3))
+
+#Time: O(n)
+#Space: O(k) deque stores at most k indices
 
 
