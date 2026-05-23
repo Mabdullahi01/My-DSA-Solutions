@@ -340,8 +340,33 @@ obj.pop()
 #Time: O(1) for the minstack operation
 
 
+'NeetCode 23'
+'Evaluate Reverse Polish Notation'
 
+# Input: tokens = ["2","1","+","3","*"]
+# Output: 9
+# Explanation: ((2 + 1) * 3) = 9
 
+def evalRPN(tokens):
+    stack = []
+
+    for ch in tokens:
+        if ch == '+':
+            stack.append(stack.pop() + stack.pop())
+        elif ch == '/':
+            a, b = stack.pop(), stack.pop()
+            stack.append(int(b / a))
+        elif ch == '-':
+            a, b = stack.pop(), stack.pop()
+            stack.append(b - a)
+        elif ch == '*':
+            stack.append(stack.pop() * stack.pop())
+        else:
+            stack.append(int(ch))
+    return stack[-1]
+
+#Time: O(2n)
+#Space: O(n)
 
 
 
