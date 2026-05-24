@@ -414,6 +414,22 @@ def generateParenthesis(n):
 
 # Input: temperatures = [73,74,75,71,69,72,76,73]
 # Output: [1,1,4,2,1,1,0,0]
+'BruteForce'
+
+def dailytemperatures(temp):
+    res = [0] * len(temp)
+
+    for i in range(len(temp)):
+        for j in range((i + 1, len(temp))):
+            if temp[j] > temp[i]:
+                res[i] = j - 1
+                break # stop at first warmer temperature
+    return res
+
+#time: O(n²)
+#space: O(n)
+
+
 'Using stack'
 def dailyTemperatures(temperatures):
     res = [0] * len(temperatures)
@@ -430,10 +446,20 @@ def dailyTemperatures(temperatures):
 #space: O(n)
 
 
+'Putting only the index on the stack'
+def dailytemperatures(temperatures):
+    res = [0]*len(temperatures)
+    stack = []
 
+    for i, t in enumerate(temperatures):
+        while stack and t > temperatures[stack[-1]]:
+            stackInd = stack.pop()
+            res[stackInd] = i - stackInd
+        stack.append(i)
+    return res
 
-
-
+#time: O(n)
+#space: O(n)
 
 
 
