@@ -546,6 +546,60 @@ Return s after reversing it.'''
 # Time complexity: O(n + m)
 # Space: O(1)
 
+'''Sort an array'''
+
+
+#[5, 3, 8, 1]
+'Selection Sort'
+def sortArray(arr):
+    for i in range(len(arr)):
+        min_index = i
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+    return arr
+#Time: O(n^2)
+#Space: O(1)
+
+
+
+'Merge Sort'
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+
+    return merge(left, right)
+
+
+def merge(left, right):
+    result = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+
+    return result
+
+#Time: O(nlogn)
+#Space: O(n)
+
+
+
+
+
 '''You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. 
 The digits are ordered from most significant to least significant in left-to-right order. 
 The large integer does not contain any leading 0's.'''
@@ -1223,7 +1277,7 @@ def maxSlidingWindow(nums, k):
         R += 1
     return output
 
-print(maxSlidingWindow([1,3,-1,-3,5,3,6,7], 3))
+
 
 #Time: O(n)
 #Space: O(k) deque stores at most k indices
