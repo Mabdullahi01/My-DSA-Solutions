@@ -96,7 +96,7 @@ def searchMatrix(matrix, target):
             bot = row - 1
         else:
             break
-    if not (top <= bot):
+    if not (top <= bot): # simply, if top go over bottom
         return False
 
     l, r = 0, n - 1
@@ -135,3 +135,50 @@ def searchMatrix(matrix, target):
     return False
 
 #Time: O(logm + logn) = O(logmn)
+
+'NeetCode 30'
+'Koko Eating Bananas'
+
+# Input: piles = [3,6,7,11], h = 8
+# Output: 4
+
+'Brute Force'
+import math
+def minEatingSpeed(piles, h):
+    for k in range(1, max(piles) + 1):
+        hours = 0
+
+        for p in piles:
+            hours += math.ceil(p / k)
+
+        if hours <= h:
+            return k
+
+
+
+'Binary Search'
+import math
+
+def minEatingSpeed(piles, h):
+
+    l, r = 1, max(piles)
+    res = r
+
+    while l <= r:
+        k = (l + r) // 2
+        hours = 0
+        for p in piles:
+            hours += math.ceil(p / k)
+        if hours <= h:
+            res = min(res, k)
+            r = k - 1
+        else:
+            l = k + 1
+    return res
+
+
+
+#Time: O(n log m) where m is max(piles) and n is len(piles)
+
+
+
