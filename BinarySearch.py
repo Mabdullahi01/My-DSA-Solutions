@@ -154,7 +154,7 @@ def minEatingSpeed(piles, h):
         if hours <= h:
             return k
 
-
+#Time: O(mn) where m is max(piles) and n is len(piles)
 
 'Binary Search'
 import math
@@ -176,9 +176,36 @@ def minEatingSpeed(piles, h):
             l = k + 1
     return res
 
-
-
 #Time: O(n log m) where m is max(piles) and n is len(piles)
 
+'NeetCode 31'
+'Search in Rotated Sorted Array'
 
+# Input: nums = [4,5,6,7,0,1,2], target = 0
+# Output: 4
 
+def search(nums, target):
+    l, r = 0, len(nums) - 1
+
+    while l <= r:
+        mid = (l + r) // 2
+
+        if nums[mid] == target:
+            return mid
+
+        #if mid is in the left sorted portion
+        if nums[l] <= nums[mid]:
+            if target > nums[mid] or target < nums[l]:
+                l = mid + 1
+            else:
+                r = mid - 1
+
+        #if mid is in the right sorted portion
+        else:
+            if target < nums[mid] or target > nums[r]:
+                r = mid - 1
+            else:
+                l = mid + 1
+    return -1
+
+#Time: O(log n)
