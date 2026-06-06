@@ -233,5 +233,37 @@ def findMin(nums):
 
 #Time: O(log n)
 
+'NeetCode 33'
+'Time Based Key-Value Store'
+# ["TimeMap", "set", "get", "get", "set", "get", "get"]
+# [[], ["foo", "bar", 1], ["foo", 1], ["foo", 3], ["foo", "bar2", 4], ["foo", 4], ["foo", 5]]
+# Output
+# [null, null, "bar", "bar", null, "bar2", "bar2"]
+
+class TimeMap:
+
+    def __init__(self):
+        self.hashmap = {} # key : list of [val, timestamp]
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        if key not in self.hashmap:
+            self.hashmap[key] = []
+        self.hashmap[key].append([value, timestamp])
+
+    def get(self, key: str, timestamp: int) -> str:
+        res = ""
+        values = self.hashmap.get(key, [])
+
+        # binary search
+        l, r = 0, len(values) - 1
+        while l <= r:
+            m = (l + r) // 2
+            if values[m][1] <= timestamp:
+                res = values[m][0]
+                l = m + 1
+            else:
+                r = m - 1
+        return res
+#Time: O(log n)
 
 
