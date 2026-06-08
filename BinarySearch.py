@@ -273,6 +273,7 @@ The overall run time complexity should be O(log (m+n))'''
 
 # Input: nums1 = [1, 2, 3, 4], nums2 = [1, 2, 3, 4, 5, 6, 7, 8]
 # Output: 2.00000
+'Binary Search'
 
 def findMedianSortedArrays(nums1, nums2):
     A, B = nums1, nums2
@@ -292,6 +293,7 @@ def findMedianSortedArrays(nums1, nums2):
         Aright = A[i + 1] if (i + 1) < len(A) else float('inf')
         Bright = B[j + 1] if (j + 1) < len(B) else float('inf')
 
+        # partition is correct
         if Aleft <= Bright and Bleft <= Aright:
             # if total length is odd
             if total % 2:
@@ -306,5 +308,34 @@ def findMedianSortedArrays(nums1, nums2):
 #Time: O(log(min(m, n)))
 
 
+'Merge Like merge sort'
 
+def findMedianSortedArrays(nums1, nums2):
+    merged = []
 
+    i = j = 0
+
+    while i < len(nums1) and j < len(nums2):
+        if nums1[i] < nums2[j]:
+            merged.append(nums1[i])
+            i += 1
+        else:
+            merged.append(nums2[j])
+            j += 1
+
+    while i < len(nums1): # merged.extend(nums1[i:]
+        merged.append(nums1[i])
+        i += 1
+    while j < len(nums2): # merged.extend(nums2[j:]
+        merged.append(nums2[j])
+        j += 1
+
+    n = len(merged)
+
+    if n % 2:
+        return merged[n // 2]
+
+    return (merged[n // 2] + merged[ n // 2 - 1]) / 2
+
+#Time: O(m + n)
+#Space: O(m + n)
