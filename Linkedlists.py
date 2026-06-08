@@ -135,6 +135,8 @@
 
 
 
+
+
 '''LEETCODE'''
 
 
@@ -948,24 +950,62 @@ def reverseList(head):
 
 
 
-'''NeetCode solution '''
+
+
+'NeetCode 35'
+'Reverse Linked list'
+'''Given the head of a singly linked list, reverse the list, and return the reversed list.'''
+
+'Iterative'
+# 1 ---> 2 ---> 3 ---> 4 --->5
+class ListNode:
+    def __init__(self, val, next):
+        self.next = next
+        self.val = val
+
 def reverseList(head):
-    if not head:
-        return None
-    newHead = head
-    if head.next:
-        newHead = reverseList(head.next)
-        head.next.next = head
+    prev = None
+    curr = head
+
+    while curr:
+        Nextnode = curr.next
+        curr.next = prev
+        prev = curr
+        curr = Nextnode
+
+    return prev
+
+def printList(head):
+    curr = head
+
+    while curr:
+        print(curr.val, end="-->")
+        curr = curr.next
+    print("None")
+
+
+node6 = ListNode(6, None)
+node5 = ListNode(5, node6)
+node4 = ListNode(4, node5)
+node3 = ListNode(3, node4)
+node2 = ListNode(2, node3)
+node1 = ListNode(1, node2)
+
+# Iterative : T O(n) M O(1)
+
+
+'Recursive'
+
+def reverseList(head):
+    if not head or not head.next:
+        return head
+
+    new_head = reverseList(head.next)
+
+    head.next.next = head
     head.next = None
-    return newHead
 
-
-
-
-
-
-
-
+    return new_head
 
 
 
