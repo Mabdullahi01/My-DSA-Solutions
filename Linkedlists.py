@@ -1007,7 +1007,74 @@ def reverseList(head):
 
     return new_head
 
+# Recursive : T O(n) M O(n)
 
+'NeetCode 36'
+'Merge Two Sorted Lists'
+'''You are given the heads of two sorted linked lists list1 and list2.
+'Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists'''
+
+'Iteratively'
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def mergeTwoLists(list1, list2):
+    dummy = ListNode()
+    current = dummy
+
+    while list1 and list2:
+        if list1.val < list2.val:
+            current.next = list1
+            list1 = list1.next
+        else:
+            current.next = list2
+            list2 = list2.next
+        current = current.next
+
+    current.next = list1 if list1 else list2
+
+    return dummy.next
+
+
+
+'Recursively'
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def mergeTwoLists(list1, list2):
+    if list1 is None:
+        return list2
+    elif list2 is None:
+        return list1
+    elif list1.val < list2.val:
+        list1.next = mergeTwoLists(list1.next, list2)
+        return list1
+    else:
+        list2.next = mergeTwoLists(list1, list2.next)
+        return list2
+
+node3 = ListNode(4)
+node2 = ListNode(2, node3)
+node1 = ListNode(1, node2)
+
+node6 = ListNode(4)
+node5 = ListNode(3, node6)
+node4 = ListNode(1, node5)
+
+new_list = mergeTwoLists(node1, node4)
+
+while new_list:
+    print(new_list.val, end='-->')
+    new_list = new_list.next
+
+# Time complexity is O(m + n)
+# Space complexity is O(m + n) due to recursive stack, as each function call adds a new frame
 
 
 
