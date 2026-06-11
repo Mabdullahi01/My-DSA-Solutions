@@ -1059,24 +1059,56 @@ def mergeTwoLists(list1, list2):
         list2.next = mergeTwoLists(list1, list2.next)
         return list2
 
-node3 = ListNode(4)
-node2 = ListNode(2, node3)
-node1 = ListNode(1, node2)
 
-node6 = ListNode(4)
-node5 = ListNode(3, node6)
-node4 = ListNode(1, node5)
-
-new_list = mergeTwoLists(node1, node4)
-
-while new_list:
-    print(new_list.val, end='-->')
-    new_list = new_list.next
 
 # Time complexity is O(m + n)
 # Space complexity is O(m + n) due to recursive stack, as each function call adds a new frame
 
 
+
+'NeetCode 37'
+'ReOrder List'
+'''You are given the head of a singly linked-list. The list can be represented as:
+
+L0 → L1 → … → Ln - 1 → Ln
+Reorder the list to be on the following form:
+
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …'''
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def reOrderList(head):
+
+    # find middle
+    slow, fast = head, head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+    # reverse second half
+    second = slow.next
+    slow.next = None
+    prev = None
+    while second:
+        next = second.next
+        second.next = prev
+        prev = second
+        second = next
+
+    first, second = head, prev
+    while second:
+        tmp1, tmp2 = first.next, second.next
+        first.next = second
+        second.next = tmp1
+        first, second = tmp1, tmp2
+
+    return first
+
+# T: o(n), M : O(1)
 
 
 
