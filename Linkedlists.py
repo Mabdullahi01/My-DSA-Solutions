@@ -1,3 +1,20 @@
+# def print_list(head):
+#     curr = head
+#     while curr:
+#         print(curr.val, end=" -> ")
+#         curr = curr.next
+#     print("None")
+#
+#
+# # Create: 1 -> 2 -> 3 -> 4 -> 5
+# head = ListNode(1)
+# head.next = ListNode(2)
+# head.next.next = ListNode(3)
+# head.next.next.next = ListNode(4)
+# head.next.next.next.next = ListNode(5)
+
+
+
 # class Node:
 #     def __init__(self, data):
 #         self.data = data
@@ -1110,7 +1127,37 @@ def reOrderList(head):
 
 # T: o(n), M : O(1)
 
+'NeetCode 38'
+'Remove Nth Node from end of List'
 
+# Input: head = [1,2,3,4,5], n = 2
+# Output: [1,2,3,5]
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def removeNthFromEnd(head, n):
+    dummy = ListNode(0, head)
+    left = dummy
+    right = head
+
+    # move right to nth node from head
+    while n > 0 and right:
+        right = right.next
+        n -= 1
+
+    # move left and right until right is at the end of the list
+    while right:
+        left = left.next
+        right = right.next
+
+    # delete the nth node
+    left.next = left.next.next
+
+    return dummy.next
+
+# T: o(n), M : O(1)
 
 
 
