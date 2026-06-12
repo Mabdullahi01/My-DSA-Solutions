@@ -1159,6 +1159,59 @@ def removeNthFromEnd(head, n):
 
 # T: o(n), M : O(1)
 
+'NeetCode 39'
+'Copy List with Random Pointer'
+class ListNode:
+    def __init__(self, val=0, next=None, random=None):
+        self.val = val
+        self.next = next
+        self.random = random
+
+def copyRandomList(head):
+    oldToCopy = { None : None }
+
+    cur = head
+    while cur:
+        copy = ListNode(cur.val)
+        oldToCopy[cur] = copy
+        cur = cur.next
+
+    cur = head
+    while cur:
+        copy = oldToCopy[cur]
+        copy.next = oldToCopy[cur.next]
+        copy.random = oldToCopy[cur.random]
+        cur = cur.next
+
+    return oldToCopy[head]
+
+def printList(head):
+    cur = head
+    while cur:
+        print((cur.val, cur.random.val if cur.random else None), end="-->")
+        cur = cur.next
+    print("None")
+
+
+head = ListNode(7)
+head.next = ListNode(13)
+head.next.next = ListNode(11)
+head.next.next.next = ListNode(10)
+head.next.next.next.next = ListNode(1)
+
+head.random = None
+head.next.random = head
+head.next.next.random = head.next.next.next.next
+head.next.next.next.random = head.next.next
+head.next.next.next.next.random = head
+
+copied = copyRandomList(head)
+head.val = 999
+print("Original:")
+printList(head)
+print("Copy:")
+printList(copied)
+
 
 
 
