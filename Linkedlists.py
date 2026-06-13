@@ -1205,12 +1205,43 @@ head.next.next.random = head.next.next.next.next
 head.next.next.next.random = head.next.next
 head.next.next.next.next.random = head
 
-copied = copyRandomList(head)
-head.val = 999
-print("Original:")
-printList(head)
-print("Copy:")
-printList(copied)
+# T: o(n), M : O(n)
+
+
+
+'NeetCode 40'
+'Add Two Numbers'
+'''You are given two non-empty linked lists representing two non-negative integers. 
+The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.'''
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+# edge case 8 + 7, loop will stop without the carry. so add 'or carry' to the while loop
+def addTwoNumbers(l1, l2):
+    dummy = ListNode()
+    cur = dummy
+
+    carry = 0
+    while l1 or l2 or carry:
+        v1 = l1.val if l1 else 0
+        v2 = l2.val if l2 else 0
+
+        # new digit
+        digit = v1 + v2 + carry
+        carry = digit // 10
+        digit = digit % 10
+        cur.next = ListNode(digit)
+
+        # update pointers
+        cur = cur.next
+        l1 = l1.next if l1 else None
+        l2 = l2.next if l2 else None
+
+
+    return dummy.next
+
 
 
 
