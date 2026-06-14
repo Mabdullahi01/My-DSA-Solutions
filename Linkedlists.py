@@ -1276,16 +1276,38 @@ def hasCycle(head):
 
 
 
+'Linked List Cycle II'
+'''Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null'''
+
+def hasCycleII(head):
+    slow = head
+    fast = head
+
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow == fast:
+            slow = head
+
+            while (slow != fast):
+                slow = slow.next
+                fast = fast.next
+            return slow.val
+    return None
+# T: o(n), M : O(1)
 
 
-
-
-
-
-
-
-
-
+def hasCycleII(head):
+    tmp = head
+    hashMap = {}
+    while tmp:
+        if tmp in hashMap:
+            return tmp
+        hashMap[tmp] = 1
+        tmp = tmp.next
+    return None
+# T: o(n), M : O(n)
 
 
 
