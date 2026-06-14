@@ -1145,7 +1145,7 @@ def removeNthFromEnd(head, n):
     # move right to nth node from head
     while n > 0 and right:
         right = right.next
-        n -= 1
+        n -= 14
 
     # move left and right until right is at the end of the list
     while right:
@@ -1243,8 +1243,36 @@ def addTwoNumbers(l1, l2):
     return dummy.next
 
 
+'NeetCode 41'
+'Linked List Cycle'
+class ListNode():
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
+def hasCycle(head):
+    slow = head
+    fast = head
 
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow == fast:
+            return True
+    return False
+# T: o(n), M : O(1)
+
+'hashmap'
+def hasCycle(head):
+    hashSet = set()
+    while head:
+        if head in hashSet:
+            return True
+        hashSet.add(head)
+        head = head.next
+    return False
+# T: o(n), M : O(n)
 
 
 
