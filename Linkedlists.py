@@ -1309,6 +1309,34 @@ def hasCycleII(head):
     return None
 # T: o(n), M : O(n)
 
+'NeetCode 42'
+'Find the duplicate number'
+'''Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+There is only one repeated number in nums, return this repeated number, solve in constant space'''
+# nums = [1, 3, 4, 2, 2]
+def findDuplicate(nums):
+    # since every value in nums is a valid index ( 1 <= nums[i] <= n), we can look at the values as a pointer
+    # next_node = nums[current_node]
+    # Every index acts like a node, and the value stored at that index acts like the "next pointer."
+    slow, fast = nums[0], nums[0]
+    while True:
+        slow = nums[slow]
+        fast = nums[nums[fast]]
+        if slow == fast:
+            break
+
+    slow = nums[0]
+    while slow != fast:
+        slow = nums[slow]
+        fast = nums[fast]
+
+    return slow
+
+# T : O(n), M : O(1)
+
+
+
+
 
 
 
