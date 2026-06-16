@@ -1334,6 +1334,70 @@ def findDuplicate(nums):
 
 # T : O(n), M : O(1)
 
+'NeetCode 43'
+'LRU cache'
+
+class Node:
+    def __init__(self, key, val):
+        self.key, self.val = key, val
+        self.prev = self.next = None
+
+class LRUCache:
+
+    def __init__(self, capacity):
+        self.cap = capacity
+        self.cache = {} # map key to node
+
+        self.head, self.tail = Node(0, 0), Node(0, 0)
+        self.head.next, self.tail.prev = self.tail,  self.head
+    def InsertAfterhead(self, node):
+        curAfterhead = self.head.next
+
+        self.head.next = node
+        node.prev = self.head
+
+        node.next = curAfterhead
+        curAfterhead.prev = node
+
+    def deleteNode(self, node):
+        prevNode = node.prev
+        afterNode = node.next
+        prevNode.next = afterNode
+        afterNode.prev = prevNode
+
+
+    def get(self, key):
+        if key in self.cache:
+            self.deleteNode(self.cache[key])
+            self.InsertAfterhead(self.cache[key])
+            return self.cache[key].val
+        return -1
+
+    def put(self, key, value):
+
+        if key in self.cache:
+            node = self.cache[key]
+            node.val = value
+
+            self.deleteNode(node)
+            self.InsertAfterhead(node)
+            return
+
+        node = Node(key, value)
+        self.cache[key] = node
+        self.InsertAfterhead(node)
+
+        if len(self.cache) > self.cap:
+            lru = self.tail.prev
+
+            self.deleteNode(lru)
+            del self.cache[lru.key]
+
+# T: O(1)
+
+
+
+
 
 
 
