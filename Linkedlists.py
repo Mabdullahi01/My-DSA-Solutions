@@ -1441,6 +1441,50 @@ def mergeList(l1, l2):
 
 
 
+'NeetCode 45'
+'Reverse Nodes in K-Group'
+'''Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.'''
+class Node:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def reverseGroup(self, head, k):
+        dummy = ListNode(0, head)
+        groupPrev = dummy
+
+        while True:
+            kth = self.getKth(groupPrev, k)
+            if not kth:
+                break
+            groupNext = kth.next
+
+            # reverse group
+            prev, curr = kth.next, groupPrev.next
+
+            while curr != groupNext:
+                tmp = curr.next
+                curr.next = prev
+                prev = curr
+                curr = tmp
+
+            # Connect group
+            tmp = groupPrev.next
+            groupPrev.next = kth
+            groupPrev = tmp
+
+        return dummy.next
+
+
+
+    # find kth node
+    def getKth(self, curr, k):
+        while curr and k > 0:
+            curr = curr.next
+            k -= 1
+        return curr
+
 
 
 
