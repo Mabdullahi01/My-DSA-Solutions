@@ -1478,7 +1478,7 @@ class Solution:
 
 
 
-    # find kth node
+    # find kth node whatwh
     def getKth(self, curr, k):
         while curr and k > 0:
             curr = curr.next
