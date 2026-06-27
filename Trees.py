@@ -673,6 +673,59 @@ class BFS:
 
 
 'NeetCode 47'
+'Maximum depth of Binary Tree'
 
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Recursive_DFS:
+    def max_depth(self, root):
+        if not root:
+            return 0
+        lh = self.max_depth(root.left)
+        rh = self.max_depth(root.right)
+
+        return 1 + max(lh + rh)
+
+class Iterative_BFS:
+    def max_depth(self, root):
+        if not root:
+            return 0
+
+        depth = 0
+        q = deque([root])
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            depth += 1
+
+        return depth
+
+class Iterative_DFS:
+    def max_depth(self, root):
+        if not root:
+            return 0
+
+        stack = [[root, 1]]
+        res = 1
+
+        while stack:
+            node, depth = stack.pop()
+
+            if node:
+                res = max(res, depth)
+                stack.append([node.left, depth + 1])
+                stack.append([node.right, depth + 1])
+        return res
+
+# T : O(n), M : O(n)
 
 
