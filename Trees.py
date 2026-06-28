@@ -682,6 +682,17 @@ class TreeNode:
         self.left = left
         self.right = right
 
+def build_tree():
+    root = TreeNode(3)
+
+    root.left = TreeNode(9)
+
+    root.right = TreeNode(20)
+    root.right.left = TreeNode(15)
+    root.right.right = TreeNode(7)
+
+    return root
+
 class Recursive_DFS:
     def max_depth(self, root):
         if not root:
@@ -689,7 +700,7 @@ class Recursive_DFS:
         lh = self.max_depth(root.left)
         rh = self.max_depth(root.right)
 
-        return 1 + max(lh + rh)
+        return 1 + max(lh,  rh)
 
 class Iterative_BFS:
     def max_depth(self, root):
@@ -728,4 +739,36 @@ class Iterative_DFS:
 
 # T : O(n), M : O(n)
 
+root = build_tree()
 
+
+'NeetCode 48'
+'Diameter of a binary tree'
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def __init__(self):
+        self.diameter = 0
+
+    def diameterOfBinaryTree(self, root):
+        self.height(root)
+        return self.diameter
+
+
+    def height(self, node):
+        if not node:
+            return 0
+
+        lh = self.height(node.left)
+        rh = self.height(node.right)
+
+        self.diameter = max(self.diameter, rh + lh)
+
+        return 1 + max(rh, lh)
+
+# T : O(n), M : O(n)
