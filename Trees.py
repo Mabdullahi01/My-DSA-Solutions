@@ -821,3 +821,28 @@ def isSameTree(p, q):
     return isSameTree(p.left, q.left) and isSameTree(p.right, q.right)
 
 
+'NeetCode 51'
+'SubTree of another Tree'
+
+class Solution:
+    def isSubtree(self, s, t):
+        if not t: return True
+        if not s: return False
+
+        if self.SameTree(s, t):
+            return True
+        return (self.isSubtree(s.left, t)) or (self.isSubtree(s.right, t))
+
+
+    def SameTree(self, s, t):
+        if not s and not t:
+            return True
+        if not s or not t or s.val != t.val:
+            return False
+
+        return (self.SameTree(s.left, t.left)) and (self.SameTree(s.right, t.right))
+
+# T: O(m * n) , M: O(m + n) if s has m nodes and t has n nodes
+
+
+
