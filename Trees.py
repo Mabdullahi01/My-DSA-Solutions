@@ -844,5 +844,52 @@ class Solution:
 
 # T: O(m * n) , M: O(m + n) if s has m nodes and t has n nodes
 
+'NeetCode 52'
+'Lowest common ancestor of a Binary search Tree'
+
+class Solution:
+    def lowestCommonAncestor(self, root, p, q):
+        cur = root
+
+        while cur:
+            if p.val > cur.val and q.val > cur.val:
+                cur = cur.right
+            elif p.val < cur.val and q.val < cur.val:
+                cur = cur.left
+            else:
+                return cur
+# T : O(log n), M : O(1)
+
+'NeetCode 53'
+'Binary Tree Level Order Traversal BFS'
+from collections import deque
+
+class Solution:
+    def levelOrder(self, root):
+        res = []
+
+        q = deque()
+        q.append(root)
+
+        while q:
+            qLen = len(q)
+            level = []
+            for i in range(qLen):
+                node = q.popleft()
+
+                if node:
+                    level.append(node.val)
+                    q.append(node.left)
+                    q.append(node.right)
+            res.append(level)
+        return res
+
+
+# T : O(n), M : O(n)
+
+
+
+
+
 
 
