@@ -940,6 +940,23 @@ class SolutionII:
                     q.append(node.left)
         return res
 
+'NeetCode 55'
+'Count Good Nodes in BT'
+
+class Solution:
+    def goodNodes(self, root):
+
+        def dfs(node, maxVal):
+            if not node:
+                return 0
+            res = 1 if node.val >= maxVal else 0
+            maxVal = max(maxVal, node.val)
+            left = dfs(node.left, maxVal)
+            right = dfs(node.right, maxVal)
+            return res + left + right
+
+        return dfs(root, root.val)
+
 
 
 
