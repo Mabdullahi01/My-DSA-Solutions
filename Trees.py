@@ -887,6 +887,60 @@ class Solution:
 
 # T : O(n), M : O(n)
 
+'NeetCode 54'
+'Binary Tree Right Side View'
+
+
+class Solution:
+    def rightSideView(self, root):
+        res = []
+        q = deque([root])
+
+        while q:
+            rightSide = None
+            qLen = len(q)
+
+            for i in range(qLen):
+                node = q.popleft()
+                if node:
+                    rightSide = node
+                    q.append(node.left)
+                    q.append(node.right)
+            if rightSide:
+                res.append(rightSide.val)
+        return res
+
+
+
+# or enqueue the right child first
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class SolutionII:
+    def rightSideView(self, root):
+        if not root:
+            return []
+
+        res = []
+        q = deque([root])
+
+        while q:
+            qLen = len(q)
+
+            for i in range(qLen):
+                node = q.popleft()
+                if i == 0:
+                    res.append(node.val)
+                if node.right:
+                    q.append(node.right)
+                if node.left:
+                    q.append(node.left)
+        return res
+
+
 
 
 
