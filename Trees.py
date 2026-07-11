@@ -949,13 +949,63 @@ class Solution:
         def dfs(node, maxVal):
             if not node:
                 return 0
-            res = 1 if node.val >= maxVal else 0
+            # keep a count of the node that is greater than or equal to, the greatest so far
+            count = 1 if node.val >= maxVal else 0
+            # update the greatest so far
             maxVal = max(maxVal, node.val)
             left = dfs(node.left, maxVal)
             right = dfs(node.right, maxVal)
-            return res + left + right
+            return count + left + right
 
         return dfs(root, root.val)
+
+# T : O(n), M : O( log n )
+
+'NC 56'
+'Validate Binary Search Tree'
+
+class Solution:
+    def isValidBST(self, root):
+
+        def valid(node, minValue, maxValue):
+            if not node:
+                return True
+            if not (node.val < maxValue and node.val > minValue):
+                return False
+            return (valid(node.left, minValue, node.val) and valid(node.right, node.val, maxValue))
+
+        return valid(root, float("-inf"), float("inf"))
+
+'NC 57'
+'Kth smallest element in a BST'
+
+# Iterative DFS
+class Solution:
+    def kthSmallest(self, root, k):
+        n = 0
+        stack = []
+        cur = root
+
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+
+            cur = stack.pop()
+            n += 1
+            if n == k:
+                return cur.val
+            cur = cur.right
+
+
+
+
+
+
+
+
+
+
 
 
 
