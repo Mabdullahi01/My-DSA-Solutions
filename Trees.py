@@ -1035,10 +1035,30 @@ class Solution:
         root.right = self.buildTree(postorder[mid:-1], inorder[mid + 1: ])
 
         return root
+'NC 59'
+'Binary Tree Maximum Path Sum'
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
+class Solution:
+    def maxPathSum(self, root):
+        self.maxi = float('-inf')
+        self.maxPath(root)
+        return self.maxi
 
+    def maxPath(self, node):
+        if not node:
+            return 0
 
+        left = max(0, self.maxPath(node.left))
+        right = max(0, self.maxPath(node.right))
 
+        self.maxi = max(self.maxi, left + right + node.val)
+
+        return node.val + max(left, right)
 
 
 
