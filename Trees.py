@@ -1035,6 +1035,8 @@ class Solution:
         root.right = self.buildTree(postorder[mid:-1], inorder[mid + 1: ])
 
         return root
+
+
 'NC 59'
 'Binary Tree Maximum Path Sum'
 class TreeNode:
@@ -1059,6 +1061,43 @@ class Solution:
         self.maxi = max(self.maxi, left + right + node.val)
 
         return node.val + max(left, right)
+
+
+'NC 60'
+'Serialize and Deserialize BT'
+
+class Codec:
+
+    def serialize(self, root):
+        res = []
+
+        def dfs(node):
+            if not node:
+                res.append("#")
+                return
+            res.append(str(node.val))
+            dfs(node.left)
+            dfs(node.right)
+        dfs(root)
+        return ",".join(res)
+
+
+    def deserialize(self, data):
+        val = data.split(",")
+        self.i = 0
+
+        def dfs():
+            if val[self.i] == "#":
+                self.i += 1
+                return None
+
+            node = TreeNode(int(val[self.i]))
+            self.i += 1
+            node.left = dfs()
+            node.right = dfs()
+            return node
+
+        return dfs()
 
 
 
