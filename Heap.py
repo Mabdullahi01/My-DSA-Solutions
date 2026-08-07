@@ -277,15 +277,39 @@ class KthLargest:
 
 
 
+'Nc 65'
+'Last Stone Weight'
 
 
+'With Array'
+def lastStoneWeight(stones):
 
+    def largestStone():
+        indexoflargest = stones.index(max(stones))
+        return stones.pop(indexoflargest)
 
+    while len(stones) > 1:
+        y = largestStone()
+        x = largestStone()
+        if x != y:
+            stones.append( y - x )
+    return stones[0] if stones else 0
 
+'with heap'
 
+def lastStoneWeight(stones):
+    stones = [-stone for stone in stones]
 
+    heapq.heapify(stones)
+    while len(stones) > 1:
+        y = abs(heapq.heappop(stones))
+        x = abs(heapq.heappop(stones))
+        if y != x:
+            heapq.heappush(stones, -(y - x))
+    return -stones[0] if stones else 0
 
-
+# T: O(nlogn)
+# M : O(n)
 
 
 
