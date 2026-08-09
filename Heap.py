@@ -295,6 +295,10 @@ def lastStoneWeight(stones):
             stones.append( y - x )
     return stones[0] if stones else 0
 
+# T: O(n^2)
+# M : O(1)
+
+
 'with heap'
 
 def lastStoneWeight(stones):
@@ -310,6 +314,30 @@ def lastStoneWeight(stones):
 
 # T: O(nlogn)
 # M : O(n)
+
+'NC 66'
+'K closest Point to Origin'
+
+def KClosest(points, k):
+    minHeap = []
+    for x, y in points:
+        dist = (x ** 2) + (y ** 2)
+        minHeap.append([dist, x, y])
+
+    heapq.heapify(minHeap)
+    res = []
+    while k > 0:
+        dist, x, y = heapq.heappop(minHeap)
+        res.append([x, y])
+        k -= 1
+    return res
+
+# T: O(N + kLogN)
+# M: O(N)
+
+
+
+
 
 
 
