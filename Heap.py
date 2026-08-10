@@ -208,7 +208,7 @@ def topKFrequent(nums, k):
 
 
 
-#Time complexity: O(n*logk) since the size of the heap never exceeds k
+#Time complexity: O(k*logn) since the size of the heap never exceeds k
 #Space complexity: O(n + k)
 
 
@@ -334,6 +334,58 @@ def KClosest(points, k):
 
 # T: O(N + kLogN)
 # M: O(N)
+
+
+
+
+'''Top K Frequent Elements
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+'''
+#Input: nums = [1,2,1,2,1,2,3,1,3,2], k = 2
+#Output: [1,2]
+
+
+'''with Bucket Sort'''
+
+def TopKFrequent(nums, k):
+    if len(nums) == k:
+        return nums
+
+    values = [[] for i in range(len(nums) + 1)]
+    hashmap = {}
+    for num in nums:
+        hashmap[num] = hashmap.get(num, 0) + 1
+    # hashmap{num:freq}
+
+    for value, freq in hashmap.items():
+        values[freq].append(value)
+    res = []
+
+    for i in range(len(values) - 1, 0, -1):
+        for  n in values[i]:
+            res.append(n)
+            if len(res) == k:
+                return res
+
+'with heap'
+
+def TopKFrequent(nums, k):
+
+    hashmap = {}
+    Heap = []
+
+    for num in nums:
+        hashmap[num] = hashmap.get(num, 0) + 1
+    for key, val in hashmap.items():
+        heapq.heappush(Heap, (val, key))
+        if len(Heap) > k:
+            heapq.heappop(Heap)
+
+    return [pair[1] for pair in Heap]
+
+
+
+
 
 
 
