@@ -208,7 +208,7 @@ def topKFrequent(nums, k):
 
 
 
-#Time complexity: O(k*logn) since the size of the heap never exceeds k
+#Time complexity: O(n*logk) since the size of the heap never exceeds k
 #Space complexity: O(n + k)
 
 
@@ -382,12 +382,25 @@ def TopKFrequent(nums, k):
             heapq.heappop(Heap)
 
     return [pair[1] for pair in Heap]
+# T: O(n log k)
+# M: O(n)
+
+'NC 67'
+'Kth Largest Element in an Array'
+
+def findKthLargest(nums, k):
+
+    minHeap = []
+
+    for num in nums:
+        heapq.heappush(minHeap, num)
+        if len(minHeap) > k:
+            heapq.heappop(minHeap)
+    return minHeap[0]
 
 
-
-
-
-
+# T: O(n log k)
+# M: O(k)
 
 
 
