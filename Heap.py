@@ -388,6 +388,7 @@ def TopKFrequent(nums, k):
 'NC 67'
 'Kth Largest Element in an Array'
 
+'With heap'
 def findKthLargest(nums, k):
 
     minHeap = []
@@ -402,7 +403,26 @@ def findKthLargest(nums, k):
 # T: O(n log k)
 # M: O(k)
 
+'Quick Select Algorithm'
 
+def findkthLargest(nums, k):
+    k = len(nums) - k
+
+    def quickSelect(l, r):
+        pivot, p = nums[r], l
+        for i in range(l, r):
+            if nums[i] <= pivot:
+                nums[p], nums[i] = nums[i], nums[p]
+                p += 1
+        nums[p], nums[r] = nums[r], nums[p]
+
+        if p < k: return quickSelect(p + 1, r)
+        if p > k: return quickSelect(l, p - 1)
+        else: return nums[p]
+
+    return quickSelect(0, len(nums) - 1)
+
+# T: O(n) on average
 
 
 
