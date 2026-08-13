@@ -424,6 +424,41 @@ def findkthLargest(nums, k):
 
 # T: O(n) on average
 
+'NC 68'
+'Task Scheduler'
+
+from collections import deque
+
+def leastInterval(tasks, n):
+
+    hashmap = {}
+    for task in tasks:
+        hashmap[task] = hashmap.get(task, 0) + 1
+    maxHeap = [-task for task in hashmap.values()]
+    heapq.heapify(maxHeap)
+
+    time = 0
+    q = deque() # pairs of [-cnt, idleTime]
+
+    while maxHeap or q:
+        time += 1
+        if maxHeap:
+            cnt = 1 + heapq.heappop(maxHeap)
+            if cnt:
+                q.append([cnt, time + n])
+
+        if q and q[0][1] == time:
+            heapq.heappush(maxHeap, q.popleft()[0])
+    return time
+
+# T : O(N)
+# M: O(N)
+
+
+
+
+
+
 
 
 
