@@ -431,10 +431,8 @@ from collections import deque
 
 def leastInterval(tasks, n):
 
-    hashmap = {}
-    for task in tasks:
-        hashmap[task] = hashmap.get(task, 0) + 1
-    maxHeap = [-task for task in hashmap.values()]
+    count = Counter(tasks)
+    maxHeap = [-cnt for cnt in count.values()]
     heapq.heapify(maxHeap)
 
     time = 0
