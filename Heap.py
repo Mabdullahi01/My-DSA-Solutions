@@ -452,7 +452,50 @@ def leastInterval(tasks, n):
 # T : O(N)
 # M: O(N)
 
+'NeetCode 69'
+'Design Twitter'
+from collections import defaultdict
 
+
+class Twitter:
+
+    def __init__(self):
+        self.time = 0
+        self.tweetMap = defaultdict(list)
+        self.followMap = defaultdict(set)
+
+    def postTweet(self, userId: int, tweetId: int):
+        self.tweetMap[userId].append([self.time, tweetId])
+        self.time -= 1
+
+
+    def getNewsFeed(self, userId):
+        res = [] # ordered starting from the most recent tweet
+        minHeap = []
+
+        self.followMap[userId].add(userId)
+        for followeeId in self.followMap[userId]:
+            if followeeId in self.tweetMap:
+                index = len(self.tweetMap[followeeId]) - 1
+                time, tweetId = self.tweetMap[followeeId][index]
+                minHeap.append([time, tweetId, followeeId, index - 1])
+        heapq.heapify(minHeap)
+        while minHeap and len(res) < 10:
+            time, tweetId, followeeId, index = heapq.heappop(minHeap)
+            res.append(tweetId)
+
+            if index >= 0:
+                time, tweetId = self.tweetMap[followeeId][index]
+                heapq.heappush(minHeap, [time, tweetId, followeeId, index - 1])
+
+        return res
+
+    def follow(self, followerId: int, followeeId: int):
+        self.followMap[followerId].add(followeeId)
+
+    def unfollow(self, followerId: int, followeeId: int):
+        if followeeId in self.followMap[followerId]:
+            self.followMap[followerId].remove(followeeId)
 
 
 
