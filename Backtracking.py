@@ -51,5 +51,21 @@ def combinationSum(candidates, target):
 
 # T: O( 2^t), where t can be the target / minimum candidate value
 
+'NeetCode 73'
+'Permutations'
 
+def permute(nums):
+    if len(nums) == 0:
+        return [[]]
 
+    # exclude the first element, [1, 2, 3]
+    perms = permute(nums[1:])
+    res = []
+    for p in perms:
+        for i in range(len(p) + 1):
+            p_copy = p.copy()
+            p_copy.insert(i, nums[0])
+            res.append(p_copy)
+    return res
+
+# T: O(n × n!)
