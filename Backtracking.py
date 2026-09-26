@@ -88,3 +88,30 @@ def permute(nums):
     return perms
 
 
+'NeetCode 74'
+'SubSet II'
+
+def subsetWithDup(nums):
+    res = []
+    nums.sort()
+
+    subset = []
+    def backtrack(i):
+        if i == len(nums):
+            res.append(subset[::])
+            return
+
+        #include nums[i]
+        subset.append(nums[i])
+        backtrack(i + 1)
+        subset.pop()
+
+        #skip nums[i] and skip duplicates
+        while i + 1 < len(nums) and nums[i] == nums[i + 1]:
+            i += 1
+        backtrack(i + 1)
+    backtrack(0)
+
+    return res
+
+# T : O( n * 2ⁿ)
