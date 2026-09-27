@@ -115,3 +115,56 @@ def subsetWithDup(nums):
     return res
 
 # T : O( n * 2ⁿ)
+
+
+'NeetCode 75'
+'CombinationSumII'
+
+def CombinationSumII(candidates, target):
+    candidates.sort()
+
+    res = []
+    def backtrack(j, curr, total):
+        if total == 0:
+            res.append(curr.copy())
+        if total <= 0:
+            return
+
+        prev = -1
+        for i in range(j, len(candidates)):
+            if candidates[i] == prev:
+                continue
+
+            curr.append(candidates[i])
+            backtrack(i + 1, curr, total - candidates[i])
+            curr.pop()
+            prev = candidates[i]
+
+    backtrack(0, [], target)
+    return res
+
+'without using prev'
+def CombinationSumII(candidates, target):
+    candidates.sort()
+
+    res = []
+    def backtrack(j, curr, total):
+        if total == 0:
+            res.append(curr.copy())
+        if total <= 0:
+            return
+
+        for i in range(j, len(candidates)):
+            if i > j and candidates[i] == candidates[i - 1]:
+                continue
+
+            curr.append(candidates[i])
+            backtrack(i + 1, curr, total - candidates[i])
+            curr.pop()
+
+    backtrack(0, [], target)
+    return res
+
+# T : O(2^n)
+
+
