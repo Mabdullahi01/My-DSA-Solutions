@@ -223,6 +223,29 @@ def isPal(s, l, r):
         l, r = l + 1, r - 1
     return True
 
+'NeetCode 78'
+'Letter Combinations of a Phone Number'
+
+def letterCombinations(digits):
+    res = []
+    hashmap = {"2":'abc', "3":'def', "4":'ghi', "5":'jkl',
+               "6":'mno', "7":'pqrs', "8":'tuv', "9":'wxyz'}
+    digt = []
+    def backtrack(i):
+        if i >= len(digits):
+            res.append("".join(digt.copy()))
+            return
+
+        currAlpha = hashmap[digits[i]]
+        for j in currAlpha:
+            digt.append(j)
+            backtrack(i + 1)
+            digt.pop()
+
+
+    if digits:
+        backtrack(0)
+    return res
 
 
 
