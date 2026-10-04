@@ -110,3 +110,22 @@ def NumIsland(grid):
                 bfs(r, c)
     return Islands
 
+'LC 841'
+'Keys and Rooms'
+
+def canVisitAllRooms(rooms):
+    seen = {0}
+    def dfs(i):
+        for neighbor in rooms[i]:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                dfs(neighbor)
+    dfs(0)
+    return len(seen) == len(rooms)
+
+# T: O(N + E)
+# M : O(N)
+
+
+
+
