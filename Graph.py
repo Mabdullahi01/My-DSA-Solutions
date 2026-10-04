@@ -38,6 +38,75 @@ def findCircleNum(isConnected):
 
     return province
 
+#T: O(n^2) Iterating over the matrix to build the hashmap
 
+'NC 80'
+'Number of Islands'
 
+'depth first search'
+def numIslands(grid):
+    if not grid:
+        return 0
+
+    rows, cols = len(grid), len(grid[0])
+    Islands = 0
+    visited = set()
+
+    def dfs(r, c):
+        if r < 0 or r >= rows or c < 0 or c >= cols:
+            return
+
+        if grid[r][c] == "0":
+            return
+        if (r, c) in visited:
+            return
+
+        visited.add((r, c))
+
+        dfs(r + 1, c)
+        dfs(r - 1, c)
+        dfs(r, c + 1)
+        dfs(r, c - 1)
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == '1' and (r, c) not in visited:
+                Islands += 1
+                dfs(r, c)
+    return Islands
+# T: O(m × n)
+# M: O(m × n)
+
+'Breadth first search'
+from collections import deque
+
+def NumIsland(grid):
+    if not grid:
+        return 0
+    visited = set()
+    Islands = 0
+    rows, cols = len(grid), len(grid[0])
+
+    def bfs(r, c):
+        queue = deque()
+        queue.append((r, c))
+        visited.add((r, c))
+
+        while queue:
+            r, c = queue.popleft()
+
+            directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+            for dx, dy in directions:
+                r, c = r + dx, c + dy
+                if (r in range(rows) and c in range(cols) and
+                        grid[r][c] == "1" and (r, c) not in visited):
+                    queue.append((r, c))
+                    visited.add((r, c))
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == "1" and (r, c) not in visited:
+                Islands += 1
+                bfs(r, c)
+    return Islands
 
