@@ -126,6 +126,34 @@ def canVisitAllRooms(rooms):
 # T: O(N + E)
 # M : O(N)
 
+'NC 81'
+'Clone Graph'
+
+class Node:
+    def __init__(self, val=0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is None else []
+
+def cloneGraph(node):
+    oldToNew = {}
+    def dfs(node):
+        if not node:
+            return None
+        if node in oldToNew:
+            return oldToNew[node]
+        copy = Node(node.val)
+        oldToNew[node] = copy
+
+        for nei in node.neighbors:
+            copy.neighbors.append(dfs(nei))
+        return copy
+    return dfs(node)
+
+
+
+
+
+
 
 
 
