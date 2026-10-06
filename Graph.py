@@ -149,6 +149,37 @@ def cloneGraph(node):
         return copy
     return dfs(node)
 
+'NC 90'
+'Number of Connected Components in an Undirected Graph'
+
+def countComponents(n, edges):
+
+    seen = set()
+    components = 0
+
+    def dfs(node):
+        for neighbor in Graph[node]:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                dfs(neighbor)
+
+    Graph = defaultdict(list)
+    for x, y in edges:
+        Graph[x].append(y)
+        Graph[y].append(x)
+
+    for i in range(n):
+        if i not in seen:
+            seen.add(i)
+            components += 1
+            dfs(i)
+    return components
+
+# T: O(V + E)
+
+
+
+
 
 
 
