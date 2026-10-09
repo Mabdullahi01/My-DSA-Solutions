@@ -93,11 +93,11 @@ def NumIsland(grid):
         visited.add((r, c))
 
         while queue:
-            r, c = queue.popleft()
+            row, col = queue.popleft()
 
             directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
             for dx, dy in directions:
-                r, c = r + dx, c + dy
+                r, c = row + dx, col + dy
                 if (r in range(rows) and c in range(cols) and
                         grid[r][c] == "1" and (r, c) not in visited):
                     queue.append((r, c))
@@ -109,6 +109,7 @@ def NumIsland(grid):
                 Islands += 1
                 bfs(r, c)
     return Islands
+
 
 'LC 841'
 'Keys and Rooms'
@@ -176,6 +177,33 @@ def countComponents(n, edges):
     return components
 
 # T: O(V + E)
+
+
+'NC 82'
+'Max Area of An Island'
+
+def maxAreaOfIsland(grid):
+    R, C = len(grid), len(grid[0])
+    seen = set()
+
+    def dfs(r, c):
+        if r < 0 or c < 0 or r >= R or c >= C or grid[r][c] == 0 or (r, c) in seen:
+            return 0
+        seen.add((r, c))
+        return (1 + dfs(r, c + 1) + dfs(r, c - 1) + dfs(r + 1, c) + dfs(r - 1, c))
+
+    area = 0
+    for r in range(R):
+        for c in range(C):
+            area = max(area, dfs(r, c))
+    return area
+
+
+print(maxAreaOfIsland([[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]))
+
+
+
+
 
 
 
