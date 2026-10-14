@@ -335,6 +335,68 @@ def orangesRotting(grid):
 #T : O( R * C)
 
 
+'NC 86'
+'Walls and Gates'
+
+def wallsAndGates(rooms):
+    ROWS, COLS = len(rooms), len(rooms[0])
+    visited = set()
+    q = deque()
+
+    for r in range(ROWS):
+        for c in range(COLS):
+            if rooms[r][c] == 0:
+                q.append((r, c))
+                visited.add((r, c))
+    directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+    dist = 1
+    while q:
+        for i in range(len(q)):
+            row, col = q.popleft()
+            for dr, dc in directions:
+                r, c = row + dr, col + dc
+                if (r < 0 or c < 0 or r >= ROWS or
+                        c >= COLS or
+                    rooms[r][c] == -1 or (r, c) in visited):
+                    continue
+                rooms[r][c] = dist
+                q.append((r, c))
+                visited.add((r, c))
+        dist += 1
+
+    return rooms
+
+'Without the visited set'
+
+def WallsAndGates(rooms):
+    ROWS, COLS = len(rooms), len(rooms[0])
+    q = deque()
+    INF = 2147483647
+
+    for r in range(ROWS):
+        for c in range(COLS):
+            if rooms[r][c] == 0:
+                q.append((r, c))
+    directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+    dist = 1
+    while q:
+        for i in range(len(q)):
+            row, col = q.popleft()
+            for dr, dc in directions:
+                r, c = row + dr, col + dc
+                if (r < 0 or c < 0 or r >= ROWS or
+                        c >= COLS or
+                    rooms[r][c] != INF):
+                    continue
+                rooms[r][c] = dist
+                q.append((r, c))
+        dist += 1
+
+    return rooms
+#T : O( R * C)
+
+
+
 
 
 
