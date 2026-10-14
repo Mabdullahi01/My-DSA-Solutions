@@ -271,7 +271,7 @@ def solve(board):
 
 # T: O(R * C)
 
-'NC 85'
+
 'NetWork Delay Time'
 import heapq
 
@@ -298,6 +298,44 @@ def networkDelayTime(times, n, k):
     return t if len(visit) == n else -1
 
 #T: O( E * log V)
+
+'NC 85'
+'Rotten Oranges'
+
+def orangesRotting(grid):
+    ROWS, COLS = len(grid), len(grid[0])
+    fresh = 0
+    q = deque()
+    time = 0
+
+    for r in range(ROWS):
+        for c in range(COLS):
+            if grid[r][c] == 1:
+                fresh += 1
+            if grid[r][c] == 2:
+                q.append((r, c))
+
+    directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+    while q and fresh > 0:
+        for i in range(len(q)):
+            row, col = q.popleft()
+
+            for dr, dc in directions:
+                r, c = row + dr, col + dc
+                if (r < 0 or c < 0 or r >= len(grid) or
+                        c >= len(grid[0]) or grid[r][c] != 1):
+                    continue
+                grid[r][c] = 2
+                fresh -= 1
+                q.append((r, c))
+        time += 1
+
+    return time if fresh == 0 else -1
+
+#T : O( R * C)
+
+
+
 
 
 
