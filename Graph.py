@@ -396,6 +396,44 @@ def WallsAndGates(rooms):
 #T : O( R * C)
 
 
+'NC 87'
+'Course Schedule I'
+
+def canFinish(numCourses, prerequisites):
+    Map = { i:[] for i in range(numCourses)}
+    visited = set()
+
+    for course, preq in prerequisites:
+        Map[course].append(preq)
+
+    def dfs(course):
+
+        if Map[course] == []:
+            return True
+        if course in visited:
+            return False
+
+        visited.add(course)
+        for pre in Map[course]:
+            if not dfs(pre):
+                return False
+        visited.remove(course)
+        Map[course] = []
+        return True
+
+    for course in range(numCourses):
+        if not dfs(course):
+            return False
+    return True
+
+# T : O( N + P)
+
+
+
+
+
+
+
 
 
 
