@@ -428,6 +428,42 @@ def canFinish(numCourses, prerequisites):
 
 # T : O( N + P)
 
+'NC 88'
+'Course Schedule II'
+
+def findOrder(numCourses, prerequisites):
+    cycle = set()
+    completed = set()
+    Order = []
+    map = { i : [] for i in range(numCourses)}
+
+    for x, y in prerequisites:
+        map[x].append(y)
+
+    def dfs(course):
+        if course in completed:
+            return True
+        if course in cycle:
+            return False
+        cycle.add(course)
+
+        for preq in map[course]:
+            if not dfs(preq):
+                return False
+
+        cycle.remove(course)
+        completed.add(course)
+        Order.append(course)
+        return True
+
+    for course in range(numCourses):
+        if dfs(course) == False:
+            return []
+    return Order
+
+# T : O(V + E)
+
+
 
 
 
