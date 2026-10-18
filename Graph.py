@@ -431,6 +431,8 @@ def canFinish(numCourses, prerequisites):
 'NC 88'
 'Course Schedule II'
 
+'with topological sort'
+
 def findOrder(numCourses, prerequisites):
     cycle = set()
     completed = set()
@@ -468,7 +470,7 @@ def findOrder(numCourses, prerequisites):
 
 'Union Find'
 def findRedundantConnection(edges):
-    parent = [i for i in range(1, len(edges) + 1)]
+    parent = [i for i in range(len(edges) + 1)]
     rank = [1] * (len(edges) + 1)
 
     def find(n):
@@ -498,10 +500,47 @@ def findRedundantConnection(edges):
         if not union(n1, n2):
             return [n1, n2]
 
-print(findRedundantConnection([[1,2],[1,3],[2,3]]))
-
 #T: O(N)
 
+
+'NC 90'
+'Number of Connected Components in an Undirected Graph'
+
+'With Union Find'
+
+def countComponent(n, edges):
+    parents = [i for i in range(n)]
+    rank = [1] * n
+
+    def find(n1):
+        p = parents[n1]
+
+        while p != parents[p]:
+            parents[p] = parents[parents[p]]
+            p = parents[p]
+        return p
+
+    def union(n1, n2):
+        p1, p2 = find(n1), find(n2)
+
+        if p1 == p2:
+            return 0
+
+        if rank[p2] > rank[p1]:
+            parents[p1] = p2
+            rank[p2] += rank[p1]
+        else:
+            parents[p2] = p1
+            rank[p1] += rank[p2]
+
+        return 1
+
+    res = n
+    for n1, n2 in edges:
+        res -= union(n1, n2)
+    return res
+
+# T: O(n + m) n nodes and m edges
 
 
 
