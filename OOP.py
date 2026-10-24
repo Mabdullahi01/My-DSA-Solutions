@@ -25,15 +25,11 @@ class Car:
     def get_fuel(self):
         return self.__fuel
 
-my_car = Car()
-my_car.accelerate()
-my_car.brake()
 
 
 
 
-print(f"Current speed: {my_car.get_speed()} km/h")
-print(f"Remaining fuel: {my_car.get_fuel()}%")
+
 
 
 'INHERITANCE'
@@ -63,20 +59,7 @@ class Bike(Vehicle):
     def ring_bell(self):
         print("Bike bell: Ring ring!")
 
-my_car = Car("V8", 4)
-my_bike = Bike("500cc", "straight")
 
-my_car.honk()
-my_car.start()
-
-my_bike.start()
-my_bike.ring_bell()
-
-print(my_car.doors)
-print(my_bike.type_of_handlebar)
-
-my_vehicle = Vehicle("E60")
-my_vehicle.start()
 
 "POLYMORPHISM"
 class Circle:
@@ -94,15 +77,6 @@ class Triangle:
 # Polymorphism in action
 def render_shape(shape):
     shape.draw()
-
-# Usage
-circle = Circle()
-square = Square()
-triangle = Triangle()
-
-render_shape(circle)
-render_shape(square)
-render_shape(triangle)
 
 
 
@@ -145,12 +119,6 @@ class Rectangle(Shape):
     def perimeter(self):
         return 2 * (self.width + self.height)
 
-
-square = Square(5)
-rectangle = Rectangle(4, 6)
-
-print(f"Square area: {square.area()}, perimeter: {square.perimeter()}")
-print(f"Rectangle area: {rectangle.area()}, perimeter: {rectangle.perimeter()}")
 
 
 
@@ -197,19 +165,6 @@ class Zoo:
 zoo = Zoo()
 leo = Lion("Leo")
 dumbo = Elephant("Dumbo", 10)
-
-zoo.add_animal(leo)
-zoo.add_animal(dumbo)
-
-
-print(leo.info())
-print(dumbo.info())
-
-# Polymorphism - different animals respond differently to sound
-zoo.show_sounds()
-print(zoo._animals[0]._name)
-
-
 
 
 
@@ -512,28 +467,49 @@ class RecentCounter:
 # print(Person.number_of_people)
 
 '''class methods'''
-# class Person:
-#     number_of_people = 0
-#
-#     def __init__(self, name):
-#         self.name = name
-#         Person.add_person()
-#
-#     @classmethod
-#     def number_of_people_(cls):
-#         return cls.number_of_people
-#
-#     @classmethod
-#     def add_person(cls):
-#         cls.number_of_people += 1
-#
-#
-# p1 = Person('tim')
-# p2 = Person('Dim')
-# print(Person.number_of_people_())
+class Person:
+    number_of_people = 0
+
+    def __init__(self, name):
+        self.name = name
+        Person.add_person()
+
+    @classmethod
+    def number_of_people_(cls):
+        return cls.number_of_people
+
+    @classmethod
+    def add_person(cls):
+        cls.number_of_people += 1
 
 
-'''static method'''
+p1 = Person('tim')
+p2 = Person('Dim')
+print(Person.number_of_people_())
+
+
+class Book:
+    TYPES = ("hardcover", "paperback")
+
+    def __init__(self, name, book_type, weight):
+        self.name = name
+        self.book_type = book_type
+        self.weight = weight
+
+    def __repr__(self):
+        return f"<Book {self.name}, {self.book_type}, weighing {self.weight}g>"
+
+    @classmethod
+    def hardcover(cls, name, pageweight):
+        return cls(name, cls.TYPES[0], pageweight + 100)
+
+    @classmethod
+    def paperback(cls, name, pageweight):
+        return cls(name, cls.TYPES[1], pageweight )
+
+book = Book.hardcover("Harry Potter", 1500)
+light = Book.paperback("Harry Potter", 1500)
+
 
 
 
