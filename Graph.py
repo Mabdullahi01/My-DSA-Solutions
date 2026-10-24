@@ -635,11 +635,31 @@ def findItinerary(tickets):
     dfs("JFK")
     return res
 
+
 # T : O(E^2) E is the edge
 
+"Hierholzer's Algorithm with Eulerian Path"
 
+def findITinerary(tickets):
+    adj = defaultdict(list)
 
+    tickets.sort(reverse=True)
+    for src, dst in tickets:
+        adj[src].append(dst)
 
+    route = []
+
+    def dfs(src):
+        while adj[src]:
+            dst = adj[src].pop()
+            dfs(dst)
+        route.append(src)
+
+    dfs("JFK")
+    return route[::-1]
+
+# Time : O(E log E) where E is the number of tickets
+# M : O(E)
 
 
 
