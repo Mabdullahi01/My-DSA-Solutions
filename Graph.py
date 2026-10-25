@@ -661,8 +661,42 @@ def findITinerary(tickets):
 # Time : O(E log E) where E is the number of tickets
 # M : O(E)
 
+'NC 94'
+'Min Cost to connnect all points'
+'Prims algorithm'
 
 
+def minCostConnectPoints(points):
+    N = len(points)
+
+    adj = { i:[] for i in range(N)} # i : list of [cost, node]
+
+    for i in range(N):
+        x1, y1 = points[i]
+        for j in range(i + 1, N):
+            x2, y2 = points[j]
+            dist = abs(x1 - x2) + abs(y2 - y1)
+            adj[i].append([dist, j])
+            adj[j].append([dist, i])
+
+    totalCost = 0
+    minHeap = [[0, 0]]
+    visit = set()
+
+    while len(visit) < N:
+        cost, i = heapq.heappop(minHeap)
+        if i in visit:
+            continue
+        visit.add(i)
+        totalCost += cost
+
+        for neiCost, nei in adj[i]:
+            if nei not in visit:
+                heapq.heappush(minHeap, [neiCost, nei])
+
+    return totalCost
+# T : O(N^2 log N)
+# M : O(N^2)
 
 
 
