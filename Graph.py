@@ -272,32 +272,6 @@ def solve(board):
 # T: O(R * C)
 
 
-'NetWork Delay Time'
-import heapq
-
-def networkDelayTime(times, n, k):
-    edges = defaultdict(list)
-    for u, v, w in times:
-        edges[u].append((v, w))
-
-    minHeap = [(0, k)]
-    visit = set()
-    t = 0
-
-    while minHeap:
-        w1, n1 = heapq.heappop(minHeap)
-        if n1 in visit:
-            continue
-        visit.add(n1)
-        t = max(t, w1)
-
-        for n2, w2 in edges[n1]:
-            if n2 not in visit:
-                heapq.heappush(minHeap, ((w2 + w1), n2))
-
-    return t if len(visit) == n else -1
-
-#T: O( E * log V)
 
 'NC 85'
 'Rotten Oranges'
@@ -697,6 +671,57 @@ def minCostConnectPoints(points):
     return totalCost
 # T : O(N^2 log N)
 # M : O(N^2)
+
+
+'NC 95'
+'Network Delay Time'
+import heapq
+def networkDelayTime(times, n, k):
+
+    egdes = defaultdict(list)
+
+    for u, v, w in times:
+        egdes[u].append((v, w))
+
+    minHeap = [(0, k)]
+    visit = set()
+    time = 0
+    while minHeap:
+        t, n1 = heapq.heappop(minHeap)
+        if n1 in visit:
+            continue
+        visit.add(n1)
+        time = max(time, t)
+
+        for n2, w in egdes[n1]:
+            if n2 not in visit:
+                heapq.heappush(minHeap, (w + t, n2))
+
+    return time if len(visit) == n else -1
+
+print(networkDelayTime([[2,1,1],[2,3,1],[3,4,1]], 4, 2))
+
+#T: O( E * log V)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
