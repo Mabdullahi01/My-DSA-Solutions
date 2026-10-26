@@ -674,7 +674,7 @@ def minCostConnectPoints(points):
 
 
 'NC 95'
-'Network Delay Time'
+'Network Delay Time, Dijkstra Algorithm'
 import heapq
 def networkDelayTime(times, n, k):
 
@@ -699,9 +699,37 @@ def networkDelayTime(times, n, k):
 
     return time if len(visit) == n else -1
 
-print(networkDelayTime([[2,1,1],[2,3,1],[3,4,1]], 4, 2))
 
 #T: O( E * log V)
+
+
+'NC 96'
+'Swimming in Rising Water, Dijkstra Algorithm'
+def swimInWater(grid):
+    N = len(grid)
+    visited = set()
+
+    directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+    minHeap = [((grid[0][0]), 0, 0)]
+    while minHeap:
+        n, row, col = heapq.heappop(minHeap)
+        if row == col == N - 1:
+            return n
+        if (row, col) in visited:
+            continue
+        visited.add((row, col))
+        for dr, dc in directions:
+            r, c = dr + row, dc + col
+            if r >= 0 and c >= 0 and r < N and c < N and (r, c) not in visited:
+                heapq.heappush(minHeap, (max(grid[r][c], n), r, c))
+# T : O( N^2 log N)
+# M : O( N^2)
+
+
+
+
+
+
 
 
 
