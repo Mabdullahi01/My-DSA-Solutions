@@ -725,6 +725,53 @@ def swimInWater(grid):
 # T : O( N^2 log N)
 # M : O( N^2)
 
+'NC 97'
+'Alien Dictionary'
+
+def alienOrder(words):
+    adj = { c:set() for w in words for c in w}
+
+    for i in range(len(words) - 1):
+        w1, w2 = words[i], words[i + 1]
+        minLen = min(len(w1), len(w2))
+        if len(w1) > len(w2) and w1[:minLen] == w2[:minLen]:
+            return ""
+        for j in range(minLen):
+            if w1[j] != w2[j]:
+                adj[w1[j]].add(w2[j])
+                break
+        visited = set()
+        path = set() # character already on the current path means a cycle
+        res = []
+
+    def dfs(c):
+        if c in path:
+            return True
+        if c in visited:
+            return False
+
+        path.add(c)
+
+        for nei in adj[c]:
+            if dfs(nei):
+                return True
+
+        path.remove(c)
+        visited.add(c)
+        res.append(c)
+
+        return False
+
+    for c in adj:
+        if dfs(c):
+            return ""
+    res.reverse()
+    return "".join(res)
+
+# T : O(L + C + E) where L, C, E are total number of characters,number of distinct characters and number of edges respectively
+# M : O(C + E)
+
+
 
 
 
