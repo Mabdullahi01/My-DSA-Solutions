@@ -772,6 +772,54 @@ def alienOrder(words):
 # M : O(C + E)
 
 
+'NC 98'
+'Cheapest flight within k stops, Bellman Ford Algorithm'
+
+
+import heapq
+
+def findCheapestPrice(n, flights, src, dst, K):
+    adj = {i: [] for i in range(n)}
+
+    for start, end, price in flights:
+        adj[start].append((end, price))
+
+    # best[city][flights_used] = cheapest cost for that exact state
+    max_flights = K + 1
+    best = [[float("inf")] * (max_flights + 1) for _ in range(n)]
+    best[src][0] = 0
+
+    # Each heap entry: (total_cost, city, flights_used)
+    pq = [(0, src, 0)]
+
+    while pq:
+        cost, city, flights_used = heapq.heappop(pq)
+
+        # Ignore an outdated, more expensive entry
+        if cost != best[city][flights_used]:
+            continue
+
+        # The heap prioritizes the lowest cost
+        if city == dst:
+            return cost
+
+        # We cannot take more than K + 1 flights
+        if flights_used == max_flights:
+            continue
+
+        for nei, price in adj[city]:
+            new_cost = cost + price
+            new_flights = flights_used + 1
+
+            if new_cost < best[nei][new_flights]:
+                best[nei][new_flights] = new_cost
+                heapq.heappush(
+                    pq, (new_cost, nei, new_flights)
+                )
+
+    return -1
+
+
 
 
 
