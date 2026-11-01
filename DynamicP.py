@@ -119,6 +119,62 @@ def climbStair(n):
 # M: O(1)
 
 
+'NC 100'
+'Min Cost Climbing stairs'
+
+def minCostTD(cost):
+    memo = {}
+
+    def dp(i):
+        if i <= 1:
+            return 0
+
+        if i in memo:
+            return memo[i]
+
+        memo[i] = min(dp(i - 1) + cost[i - 1], dp(i - 2) + cost[i - 2])
+        return memo[i]
+    return dp(len(cost))
+
+def minCostBU(cost):
+    n = len(cost)
+
+    dp = [0] * (n + 1)
+
+    for i in range(2, n + 1):
+        dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2])
+    return dp[n]
+
+# Both solutions
+# T : O(n)
+# M : O(n)
+
+'Optimized solution with two variables'
+
+def minCostBU(cost):
+    n = len(cost)
+
+    prev2 = 0
+    prev1 = 0
+
+    for i in range(2, n + 1):
+        current = min(prev2 + cost[i - 2], prev1 + cost[i - 1])
+
+        prev2 = prev1
+        prev1 = current
+
+    return prev1
+print(minCostBU([4, 7, 2, 9]))
+
+# T : O(n)
+# M : O(1)
+
+
+
+
+
+
+
 
 
 
