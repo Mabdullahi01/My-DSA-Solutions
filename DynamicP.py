@@ -164,12 +164,55 @@ def minCostBU(cost):
         prev1 = current
 
     return prev1
-print(minCostBU([4, 7, 2, 9]))
 
 # T : O(n)
 # M : O(1)
 
+'NC 101'
+'House Robber'
 
+'Top down'
+def robTD(nums):
+    memo = {}
+    n = len(nums)
+
+    def dp(i):
+
+        if i == 0:
+            return nums[0]
+
+        if i == 1:
+            return max(nums[0], nums[1])
+        if i in memo:
+            return memo[i]
+
+        memo[i] = max(dp(i - 1), nums[i] + dp(i - 2))
+
+        return memo[i]
+
+    return dp(n - 1)
+
+'Bottom Up'
+
+def robBU(nums):
+    if len(nums) == 1:
+        return nums[0]
+
+    n = len(nums)
+    dp = [0] * n
+
+    dp[0] = nums[0]
+    dp[1] = max(nums[0], nums[1])
+
+    for i in range(2, n):
+
+        dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
+
+    return dp[n - 1]
+
+# Both solutions
+# T: O(n)
+# M: O(n)
 
 
 
