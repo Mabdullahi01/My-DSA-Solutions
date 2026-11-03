@@ -218,6 +218,9 @@ def robBU(nums):
 
 def HouseRobber(nums):
     n = len(nums)
+    if n == 1:
+        return nums[0]
+
     prev2 = 0
     prev1 = 0
 
@@ -229,6 +232,59 @@ def HouseRobber(nums):
 
 # T : O(n)
 # M : O(1)
+
+'NC 102'
+'House Robber II'
+
+def houseRobII(nums):
+
+    def robI(num):
+        n = len(num)
+        if n == 0:
+            return 0
+        if n == 1:
+            return nums[0]
+        dp = [0] * n
+
+        dp[0] = num[0]
+        dp[1] = max(num[0], num[1])
+
+        for i in range(2, n):
+            dp[i] = max(dp[i - 2] + num[i], dp[i - 1])
+        return dp[n - 1]
+
+    if  len(nums) == 1:
+        return nums[0]
+
+    return max(robI(nums[1:]), robI(nums[:-1]))
+
+#T : O(n)
+#M : O(n)
+
+'Optimized space'
+
+def houseRobberII(nums):
+    if len(nums) == 1:
+        return nums[0]
+
+    def robI(num):
+        n = len(num)
+        if n == 1:
+            return num[0]
+
+        n = len(num)
+        prev2 = 0
+        prev1 = 0
+
+        for i in range(n):
+
+            curr = max(num[i] + prev2, prev1)
+            prev2 = prev1
+            prev1 = curr
+
+        return prev1
+    return max(robI(nums[1:]), robI(nums[:-1]))
+
 
 
 
