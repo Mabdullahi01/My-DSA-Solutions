@@ -205,7 +205,6 @@ def robBU(nums):
     dp[1] = max(nums[0], nums[1])
 
     for i in range(2, n):
-
         dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
 
     return dp[n - 1]
@@ -215,7 +214,21 @@ def robBU(nums):
 # M: O(n)
 
 
+'Optimized space'
 
+def HouseRobber(nums):
+    n = len(nums)
+    prev2 = 0
+    prev1 = 0
+
+    for i in range(n):
+        curr = max(nums[i] + prev2, prev1)
+        prev2 = prev1
+        prev1 = curr
+    return prev1
+
+# T : O(n)
+# M : O(1)
 
 
 
