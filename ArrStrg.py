@@ -1315,3 +1315,36 @@ def LpalSubstring(s):
 # T : O(n ^ 2)
 # M : O(1)
 
+'NC 104'
+'Palindromic Substring'
+
+def countSubstrings(s):
+    res = 0
+
+    for i in range(len(s)):
+        L, R = i, i
+        while L >= 0 and R < len(s) and s[R] == s[L]:
+            res += 1
+            L -= 1
+            R += 1
+
+        L, R = i, i + 1
+        while L >= 0 and R < len(s) and s[R] == s[L]:
+            res += 1
+            L -= 1
+            R += 1
+    return res
+
+# T : O(n^2)
+
+
+
+
+
+
+
+
+
+
+
+
