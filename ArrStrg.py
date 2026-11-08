@@ -1315,6 +1315,59 @@ def LpalSubstring(s):
 # T : O(n ^ 2)
 # M : O(1)
 
+
+def LpalSubstrings(s):
+
+    res = ""
+
+    for i in range(len(s)):
+        # for odd length centered at i
+        odd = substrg(s, i, i)
+        if len(odd) > len(res):
+            res = odd
+        # even length centered between i and i + 1
+        even = substrg(s, i, i + 1)
+        if len(even) > len(res):
+            res = even
+    return res
+
+def substrg(s, L, R):
+    res = ""
+    while L >= 0 and R < len(s) and s[R] == s[L]:
+        if R - L + 1 > len(res):
+            res = s[L: R + 1]
+        L -= 1
+        R += 1
+    return res
+
+
+def LongestpalSubstrings(s):
+
+    res = ""
+
+    for i in range(len(s)):
+        # for odd length centered at i
+        odd = Lsubstrg(s, i, i)
+        # for even length centered between i and i + 1
+        even = Lsubstrg(s, i, i + 1)
+        res = max(res, odd, even, key=len)
+
+    return res
+
+def Lsubstrg(s, L, R):
+    res = ""
+    while L >= 0 and R < len(s) and s[R] == s[L]:
+        if R - L + 1 > len(res):
+            res = s[L: R + 1]
+        L -= 1
+        R += 1
+    return res
+print(LongestpalSubstrings('babad'))
+# T : O(n ^ 2)
+# M : O(1)
+
+
+
 'NC 104'
 'Palindromic Substring'
 
@@ -1336,6 +1389,25 @@ def countSubstrings(s):
     return res
 
 # T : O(n^2)
+
+
+def countSubstring(s):
+    res = 0
+    for i in range(len(s)):
+        res += countPali(s, i, i)
+        res += countPali(s, i, i + 1)
+
+    return res
+
+def countPali(s, L, R):
+    r = 0
+    while L >= 0 and R < len(s) and s[R] == s[L]:
+        r += 1
+        L -= 1
+        R += 1
+    return r
+
+
 
 
 
