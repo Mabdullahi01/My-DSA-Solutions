@@ -286,8 +286,40 @@ def houseRobberII(nums):
     return max(robI(nums[1:]), robI(nums[:-1]))
 
 
+'NC 105'
+'Decode Ways'
+def numDecoding(s):
+
+    dp = { len(s) : 1}
+
+    for i in range(len(s) - 1, -1, -1):
+        if s[i] == "0":
+            dp[i] = 0
+
+        else:
+            dp[i] = dp[i + 1]
+
+        if (i + 1 < len(s) and (s[i] == "1" or
+            s[i] == "2" and s[i + 1] in "0123456")):
+            dp[i] += dp[i + 2]
+    return dp[0]
 
 
+def decodeWays(s):
+    n = len(s)
+    dp = [0] * (n + 1)
+
+    dp[0] = 1
+
+    for i in range(1, n + 1):
+
+        if s[i - 1] != "0":
+            dp[i] += dp[i - 1]
+
+        if i >= 2 and 10 <= int(s[i - 2:i]) <= 26:
+            dp[i] += dp[i - 2]
+
+    return dp[n]
 
 
 
