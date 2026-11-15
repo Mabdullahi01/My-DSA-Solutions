@@ -1425,6 +1425,21 @@ def convert(s, numRows):
 
     return res
 
+'Maximum Subarray LC 53'
+# nums = [-2,1,-3,4,-1,2,1,-5,4]
+
+def maxSubarray(nums):
+    maxSum = nums[0]
+    currSum = 0
+
+    for num in nums:
+        if currSum < 0:
+            currSum = 0
+
+        currSum += num
+        maxSum = max(maxSum, currSum)
+    return maxSum
+ # T : O(n)
 
 
 
