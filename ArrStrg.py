@@ -1362,7 +1362,6 @@ def Lsubstrg(s, L, R):
         L -= 1
         R += 1
     return res
-print(LongestpalSubstrings('babad'))
 # T : O(n ^ 2)
 # M : O(1)
 
@@ -1440,6 +1439,49 @@ def maxSubarray(nums):
         maxSum = max(maxSum, currSum)
     return maxSum
  # T : O(n)
+
+
+
+'Trapping Rain water'
+
+
+def trap(height):
+    L, R = 0, len(height) - 1
+    Lmax, Rmax = height[L], height[R]
+    res = 0
+
+    while L < R:
+        if Lmax < Rmax:
+            L += 1
+            Lmax = max(Lmax, height[L])
+            res += Lmax - height[L]
+
+        else:
+            R -= 1
+            Rmax = max(Rmax, height[R])
+            res += Rmax - height[R]
+
+    return res
+
+def trap(height):
+    n = len(height)
+    Lmax = [0] * n
+    Rmax = [0] * n
+
+    Lmax[0] = height[0]
+    Rmax[-1] = height[-1]
+
+
+    for i in range(1, n):
+        Lmax[i] = max(Lmax[i - 1], height[i])
+    for j in range(n - 2, -1, -1):
+        Rmax[j] = max(Rmax[j + 1], height[j])
+
+    res = 0
+    for i in range(n):
+        res += (min(Lmax[i], Rmax[i]) - height[i])
+    return res
+
 
 
 
