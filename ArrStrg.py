@@ -1,39 +1,118 @@
+'Add Digits'
+'num = 38, ans = 3 + 8 = 11 = 1 + 1 = 2'
+
+def addDigits(num):
+
+    while num >= 10:
+        total = 0
+
+        while num > 0:
+            total += num % 10
+            num //= 10
+
+        num = total
+    return num
+
+
+'Sum of digits'
+
+def sumDigits(num):
+    total = 0
+    while num > 0:
+        total += num % 10
+        num //= 10
+    return total
+
+'Count even and odd number'
+
+def countEvenOdd(nums):
+    evenCount, oddCount = 0, 0
+    for i in range(len(nums)):
+        if nums[i] % 2 == 0:
+            evenCount += 1
+        else:
+            oddCount += 1
+    return [evenCount, oddCount]
+
+'Reverse Integer'
+
+def reverse(x):
+
+    sign = -1 if x < 0 else 1
+
+    x = abs(x)
+    res = 0
+    while x > 0:
+        digit = x % 10
+        res = res * 10 + digit
+        x //= 10
+
+    res = sign * res
+
+    if res < -(2 ** 31) or res > 2 ** 31 - 1:
+        return 0
+    return res
+
+'Google OA'
+def solution(A):
+    rows = []
+
+    for height in A:
+        placed = False
+
+        for i in range(len(rows)):
+            if rows[i] > height:
+                rows[i] = height
+                placed = True
+                break
+
+        if not placed:
+            rows.append(height)
+
+    return len(rows)
+
+
+
+
+
+
+
 '''Given a string s, return true if it is a palindrome, false otherwise'''
 
 #A string is a palindrome if it reads the same forward as backward
 
-# def ifpalindrom(s):
-#     left = 0
-#     right = len(s) - 1
-#
-#     while left < right:
-#         if s[left] != s[right]:
-#             return False
-#
-#         left += 1
-#         right -= 1
-#     return True
+def ifpalindrom(s):
+    left = 0
+    right = len(s) - 1
+
+    while left < right:
+        if s[left] != s[right]:
+            return False
+
+        left += 1
+        right -= 1
+    return True
 #
 #
 # print(ifpalindrom('aceba'))
 
 '''Given a sorted array of unique integers and a target integer, return true if there exists a pair of numbers that sum to target, false otherwise. This problem is similar to Two Sum. (In Two Sum, the input is not sorted).'''
 
-# nums = [1, 2, 4, 6, 8, 9, 14, 15]
-# target = 13
-# def check_for_target(nums, target):
-#     left = 0
-#     right = len(nums) - 1
-#
-#     while left < right:
-#         sum = nums[left] + nums[right]
-#         if sum == target:
-#             return True
-#         if sum > target:
-#             right -= 1
-#         else:
-#             left += 1
-#     return False
+nums = [1, 2, 4, 6, 8, 9, 14, 15]
+target = 13
+def check_for_target(nums, target):
+    left = 0
+    right = len(nums) - 1
+
+    while left < right:
+        sum = nums[left] + nums[right]
+        if sum == target:
+            return True
+        if sum > target:
+            right -= 1
+        else:
+            left += 1
+    return False
 
 '''Brute Force Solution,When the array is not sorted'''
 #nums = [4, -2, 5, 0, 6, 3, 2, -1]
