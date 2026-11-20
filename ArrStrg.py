@@ -1562,6 +1562,40 @@ def trap(height):
     return res
 
 
+'LC 1248'
+'Count Number of Nice Subarrays'
+
+def numberOfSubarrays(nums, k):
+
+    # 2 2 1 1 2 1 2
+    # L   M       R
+    # M
+    L, M = 0, 0
+    res = 0
+    odd = 0
+
+    for R in range(len(nums)):
+
+        #count odd numbers
+        if nums[R] % 2:
+            odd += 1
+
+        #shrink window while odd > k
+        while odd > k:
+            if nums[L] % 2:
+                odd -= 1
+            L += 1
+            M = L
+
+        #record number of subarrays using the mid pointer
+        if odd == k:
+            while not nums[M] % 2:
+                M += 1
+            res += (M - L + 1)
+    return res
+print(numberOfSubarrays([2, 2, 1, 1, 2, 1, 2], 3))
+
+
 
 
 
