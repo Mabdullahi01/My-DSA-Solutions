@@ -1561,7 +1561,7 @@ def trap(height):
         res += (min(Lmax[i], Rmax[i]) - height[i])
     return res
 
-
+'3 pointer sliding window techniques'
 'LC 1248'
 'Count Number of Nice Subarrays'
 
@@ -1593,7 +1593,37 @@ def numberOfSubarrays(nums, k):
                 M += 1
             res += (M - L + 1)
     return res
-print(numberOfSubarrays([2, 2, 1, 1, 2, 1, 2], 3))
+
+
+'LC 992'
+'Subarrays with K different Integers'
+# nums = [1,2,1,2,3], k = 2
+
+def subArrayswithKDistinct(nums, k):
+    L, M = 0, 0
+    res = 0
+
+    count = defaultdict(int)
+
+    for R in range(len(nums)):
+        count[nums[R]] += 1
+
+        while len(count) > k:
+            count[nums[M]] -= 1
+            if count[nums[M]] == 0:
+                count.pop(nums[M])
+            M += 1
+            L = M
+
+        while count[nums[M]] > 1:
+            count[nums[M]] -= 1
+            M += 1
+
+        if len(count) == k:
+            res += (M - L + 1)
+    return res
+
+
 
 
 
