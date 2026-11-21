@@ -35,14 +35,14 @@
 # nums = [5, 2, 7, 10, 3, 9]
 # target = 8
 
-# def twoSum(nums, target):
-#     hash_map = {}
-#     for i in range(len(nums)):
-#         comp = target - nums[i]
-#         if comp in hash_map:
-#             return [i, hash_map[comp]]
-#         hash_map[nums[i]] = i
-#     return [-1, -1]
+def twoSum(nums, target):
+    hash_map = {}
+    for i in range(len(nums)):
+        comp = target - nums[i]
+        if comp in hash_map:
+            return [i, hash_map[comp]]
+        hash_map[nums[i]] = i
+    return [-1, -1]
 #
 # nums = [4, -2, 5, 0, 6, 3, 2, -1]
 # target = -2
@@ -52,24 +52,24 @@
 
 '''Given a string s, return the first character to appear twice. It is guaranteed that the input will have a duplicate character.'''
 # s = 'swiss'
-# def repeatedCharacter(s):
-#     for i in range(len(s)):
-#         c = s[i]
-#         for j in range(i):
-#             if s[j] == c:
-#                 return c
-#     return " "
+def repeatedCharacter(s):
+    for i in range(len(s)):
+        c = s[i]
+        for j in range(i):
+            if s[j] == c:
+                return c
+    return " "
 # s = 'swiss'
 # print(repeatedCharacter(s))
 
 #Approach 2, Using HashSet
-# def repeatedCharacter(s):
-#     seen = set()
-#     for i in s:
-#         if i in seen:
-#             return i
-#         seen.add(i)
-#     return ""
+def repeatedCharacter(s):
+    seen = set()
+    for i in s:
+        if i in seen:
+            return i
+        seen.add(i)
+    return ""
 # s = 'abcdeda'
 # print(repeatedCharacter(s))
 
@@ -78,13 +78,13 @@
 
 '''Given an integer array nums, find all the unique numbers x in nums that satisfy the following: x + 1 is not in nums, and x - 1 is not in nums'''
 
-# def find_numbers(nums):
-#     ans = []
-#     nums_set = set(nums)
-#     for x in nums_set:
-#         if (x + 1 not in nums_set and x - 1 not in nums_set):
-#             ans.append(x)
-#     return ans
+def find_numbers(nums):
+    ans = []
+    nums_set = set(nums)
+    for x in nums_set:
+        if (x + 1 not in nums_set and x - 1 not in nums_set):
+            ans.append(x)
+    return ans
 # nums = [1, 2, 3, 5, 6, 7, 9]
 # print(find_numbers(nums))
 
@@ -107,21 +107,21 @@ Given a string sentence containing only lowercase English letters, return true i
 
 #Approach1
 
-# def checkIfPangram(sentence):
-#     for i in range(26):
-#         curr_char = chr(ord('a') + i)
-#         if sentence.find(curr_char) == -1:
-#             return False
-#     return True
+def checkIfPangram(sentence):
+    for i in range(26):
+        curr_char = chr(ord('a') + i)
+        if sentence.find(curr_char) == -1:
+            return False
+    return True
 # sentence = "thequickbrownfoxjumpsoverthelazydog"
 # print(checkIfPangram(sentence))
 #Time complexity is O(n) and the Space is O(1)
 
 #Approach2 Using HASH SET
 
-# def checkIfPangram(sentence):
-#     seen = set(sentence)
-#     return len(seen) == 26
+def checkIfPangram(sentence):
+    seen = set(sentence)
+    return len(seen) == 26
 # sentence = "thequickbrownfoxjumpsoverthelazydog"
 # print(checkIfPangram(sentence))
 
@@ -130,26 +130,26 @@ Given a string sentence containing only lowercase English letters, return true i
 
 '''Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.'''
 
-# def missingNumber(nums):
-#     n = len(nums)
-#     curr = 0
-#     for i in range(n):
-#         curr += nums[i]
-#     rangesum = sum(range(0, n+1))
-#     return (rangesum - curr)
+def missingNumber(nums):
+    n = len(nums)
+    curr = 0
+    for i in range(n):
+        curr += nums[i]
+    rangesum = sum(range(0, n+1))
+    return (rangesum - curr)
 # nums = [0,1]
 # print(missingNumber(nums))
 # Time: O(n)
 # Space:O(n) Because of the rangesum that store the sum of the range(0, n+1) numbers
 
 #Optimized Code
-# def missingNumber(nums):
-#     n = len(nums)
-#     curr = 0
-#     for i in range(n):
-#         curr += nums[i]
-#     rangesum = (n * ( n + 1)) // 2
-#     return (rangesum - curr)
+def missingNumber(nums):
+    n = len(nums)
+    curr = 0
+    for i in range(n):
+        curr += nums[i]
+    rangesum = (n * ( n + 1)) // 2
+    return (rangesum - curr)
 # nums = [0,1]
 # print(missingNumber(nums))
 # Time: O(n)
@@ -947,6 +947,26 @@ def longestConsecutive(nums):
 
 #Time: O(n)
 #Space: O(n)
+
+
+'LC 1814'
+'Count Nice Pairs in an Array'
+# nums = [42, 11, 1, 97]
+def count_nice_pairs_in_array(nums):
+
+    def rev(num):
+        res = 0
+        while num > 0:
+            res = res * 10 + num % 10
+            num //= 10
+        return res
+    dict = defaultdict(int)
+    ans = 0
+    for num in nums:
+        diff = num - rev(num)
+        ans += dict[diff]
+        dict[diff] += 1
+    return ans
 
 
 
