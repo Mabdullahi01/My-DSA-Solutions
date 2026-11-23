@@ -59,10 +59,9 @@ def repeatedCharacter(s):
             if s[j] == c:
                 return c
     return " "
-# s = 'swiss'
-# print(repeatedCharacter(s))
 
 #Approach 2, Using HashSet
+# s = 'abcdeda'
 def repeatedCharacter(s):
     seen = set()
     for i in s:
@@ -70,14 +69,12 @@ def repeatedCharacter(s):
             return i
         seen.add(i)
     return ""
-# s = 'abcdeda'
-# print(repeatedCharacter(s))
 
 #Time complexity is O(n) as each loop iterations runs in constant time, While the space complexity is O(1), Because the input can only have
 #characters from the exchange alphabet, But it could also be O(m) where m is the number of allowable charcters in the input
 
 '''Given an integer array nums, find all the unique numbers x in nums that satisfy the following: x + 1 is not in nums, and x - 1 is not in nums'''
-
+# nums = [1, 2, 3, 5, 6, 7, 9]
 def find_numbers(nums):
     ans = []
     nums_set = set(nums)
@@ -85,9 +82,6 @@ def find_numbers(nums):
         if (x + 1 not in nums_set and x - 1 not in nums_set):
             ans.append(x)
     return ans
-# nums = [1, 2, 3, 5, 6, 7, 9]
-# print(find_numbers(nums))
-
 # Time Complexity is O(n), Because of the conversion of the list to set. The not in operation for list has a time complexity of O(n)
 # which would make the time complexity to be O(n^2) if the list isn't converted to set
 # The set Occupies O(n) space
@@ -104,9 +98,7 @@ def find_numbers(nums):
 '''A pangram is a sentence where every letter of the English alphabet appears at least once.
 
 Given a string sentence containing only lowercase English letters, return true if sentence is a pangram, or false otherwise.'''
-
 #Approach1
-
 def checkIfPangram(sentence):
     for i in range(26):
         curr_char = chr(ord('a') + i)
@@ -129,7 +121,7 @@ def checkIfPangram(sentence):
 # Space complexity is O(1) Because the hash set can only contain at most 26 unique lowercase letters
 
 '''Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.'''
-
+#nums = [0, 1, 2, 4]
 def missingNumber(nums):
     n = len(nums)
     curr = 0
@@ -138,7 +130,6 @@ def missingNumber(nums):
     rangesum = sum(range(0, n+1))
     return (rangesum - curr)
 # nums = [0,1]
-# print(missingNumber(nums))
 # Time: O(n)
 # Space:O(n) Because of the rangesum that store the sum of the range(0, n+1) numbers
 
@@ -157,12 +148,12 @@ def missingNumber(nums):
 
 '''Given an integer array arr, count how many elements x there are, such that x + 1 is also in arr. If there are duplicates in arr, count them separately.'''
 #Approach 1
-# def countElements(arr):
-#     count = 0
-#     for x in arr:   #O(n)
-#         if (x + 1) in arr: #O(n)
-#             count += 1
-#     return count
+def countElements(arr):
+    count = 0
+    for x in arr:   #O(n)
+        if (x + 1) in arr: #O(n)
+            count += 1
+    return count
 #
 # arr = [1,1,3,3,5,5,7,7]
 # print(countElements(arr))
@@ -171,15 +162,14 @@ def missingNumber(nums):
 
 #Approach 2, Using HashSet
 
-# def countElements(arr):
-#     hashset = set(arr) #O(n)
-#     count = 0
-#     for x in arr: #O(n)
-#         if x + 1 in hashset: #O(1)
-#             count += 1
-#     return count
-# arr = [1,1,3,3,5,5,7,7]
-# print(countElements(arr))
+def countElements(arr):
+    hashset = set(arr) #O(n)
+    count = 0
+    for x in arr: #O(n)
+        if x + 1 in hashset: #O(1)
+            count += 1
+    return count
+arr = [1,1,3,3,5,5,7,7]
 
 # Time: O(n)
 # Space: O(n), because hashset needs to store each unique integer from arr
@@ -189,19 +179,19 @@ def missingNumber(nums):
 
 from collections import defaultdict
 # s = eceba k = 2
-# def find_longest_substring(s, k):
-#     counts = defaultdict(int)
-#     ans = left = 0
-#     for right in range(len(s)):
-#         counts[s[right]] += 1
-#         while len(counts) > k:
-#             counts[s[left]] -= 1
-#
-#             if counts[s[left]] == 0:
-#                 del counts[s[left]]
-#             left += 1
-#         ans =  max(ans, right -left + 1)
-#      return ans
+def find_longest_substring(s, k):
+    counts = defaultdict(int)
+    ans, left =  0, 0
+    for right in range(len(s)):
+        counts[s[right]] += 1
+        while len(counts) > k:
+            counts[s[left]] -= 1
+
+            if counts[s[left]] == 0:
+                del counts[s[left]]
+            left += 1
+        ans =  max(ans, (right - left + 1))
+    return ans
 # s = 'eceba'
 # k = 2
 # print(find_longest_substring(s, k))
@@ -867,11 +857,6 @@ rows, cols = (5, 5)
 #     print(row)
 
 
-
-
-
-
-
 '''You are given a string s and an integer k. Find the length of the longest substring that contains at most k distinct characters.'''
 s = 'eceba'
 k = 2
@@ -882,9 +867,7 @@ def LengthOflongestkDistinctSubstring(s, k):
     left = ans = 0
 
     for right in range(len(s)):
-        if s[right] not in hashmap:
-            hashmap[s[right]] = 0
-        hashmap[s[right]] += 1
+        hashmap[s[right]] = hashmap.get(s[right], 0) + 1
 
         while len(hashmap) > k:
             hashmap[s[left]] -= 1
@@ -896,7 +879,6 @@ def LengthOflongestkDistinctSubstring(s, k):
         ans = max(ans, right - left + 1)
 
     return ans
-
 
 # Time: O(n)
 # Space: O(k) The hashmap occupies O(k) space, as the algorithm will delete elements from the hash map once it grows beyond k
@@ -967,6 +949,25 @@ def count_nice_pairs_in_array(nums):
         ans += dict[diff]
         dict[diff] += 1
     return ans
+
+'LC 395'
+'Longest substring with at least k repeating character'
+'Divide and Conquer Solution'
+
+from collections import Counter
+class Solution:
+    def Longest_substring(self, s, k):
+        if len(s) < k:
+            return 0
+
+        Freq = Counter(s)
+
+        for i in range(len(s)):
+            if Freq[s[i]] < k:
+                left = s[:i]
+                right = s[i + 1 :]
+                return max(self.Longest_substring(left, k), self.Longest_substring(right, k))
+        return len(s)
 
 
 
