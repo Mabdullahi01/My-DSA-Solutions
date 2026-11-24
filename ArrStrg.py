@@ -1244,10 +1244,7 @@ def checkInclusion(s1, s2):
 # Time complexity: O(n), where n is the length of s2
 # Space complexity: O(26)--> O(1)
 
-
 'Sliding window with hashmap'
-
-
 def checkInclusion(s1, s2):
     n1 = len(s1)
     n2 = len(s2)
@@ -1623,7 +1620,55 @@ def subArrayswithKDistinct(nums, k):
             res += (M - L + 1)
     return res
 
+'LC 438'
+'Find all anagrams in a string'
+# s = "cbaebabacd", p = "abc" output = [0,6]
 
+'Brute Force with sorting'
+def Find_all_anagrams(s, p):
+    sortedP = sorted(p)
+    k = len(p)
+    arr = []
+    for i in range(len(s) - k + 1):
+        Ns = s[i : i + k]
+        sortedS = sorted(Ns)
+        if sortedS == sortedP:
+            arr.append(i)
+    return arr
+
+'Brute Force with hashmap'
+from collections import Counter
+def Find_all_Anagrams(s, p):
+    mapP = Counter(p)
+    k = len(p)
+    arr = []
+    for i in range(len(s) - k + 1):
+        substring = s[i: i + k]
+        mapS = Counter(substring)
+        if mapS == mapP:
+            arr.append(i)
+    return arr
+
+'Optimized solution, Sliding Window'
+def find_all_Anagrams(s, p):
+    if len(p) > len(s):
+        return []
+    map2 = {}
+    L = 0
+    res = []
+    map1 = Counter(p)
+    for R in range(len(s)):
+        map2[s[R]] = map2.get(s[R], 0) + 1
+        if R - L + 1 > len(p):
+            map2[s[L]] -= 1
+            if map2[s[L]] == 0:
+                del map2[s[L]]
+            L += 1
+        if map1 == map2:
+            res.append(L)
+    return res
+# T: O(n)
+# M: O(k)
 
 
 
