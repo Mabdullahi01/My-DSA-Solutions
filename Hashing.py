@@ -970,5 +970,40 @@ class Solution:
         return len(s)
 
 
+'LC 159'
+'Longest Substring with at most Two Distinct Character'
+def longest_Substring_most_Two_Distinct(s):
+        if len(s) < 2:
+            return 1
+        map = {}
+        L = 0
+        ans = 0
+        for R in range(len(s)):
+            map[s[R]] = map.get(s[R], 0) + 1
 
+            while len(map) > 2:
+                map[s[L]] -= 1
+                if map[s[L]] == 0:
+                    del map[s[L]]
+                L += 1
+            ans = max(ans, R - L + 1)
+        return ans
+
+'LC 904'
+'Fruit into Basket'
+
+def fruit_into_basket(fruits):
+    hashmap = {}
+
+    L, ans = 0, 0
+    for R in range(len(fruits)):
+
+        hashmap[fruits[R]] = hashmap.get(fruits[R], 0) + 1
+        while len(hashmap) > 2:
+            hashmap[fruits[L]] -= 1
+            if hashmap[fruits[L]] == 0:
+                del hashmap[fruits[L]]
+            L += 1
+        ans = max(ans, R - L + 1)
+    return ans
 
