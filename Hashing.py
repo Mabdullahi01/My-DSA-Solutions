@@ -992,6 +992,23 @@ def longest_Substring_most_Two_Distinct(s):
 'LC 904'
 'Fruit into Basket'
 
+'Brute Force'
+# [0,1,2,2]
+
+def basketFruit(fruits):
+    ans = 0
+    for i in range(len(fruits)):
+
+        hashset = set()
+        for j in range(i, len(fruits)):
+
+            hashset.add(fruits[j])
+            if len(hashset) > 2:
+                break
+            ans = max(ans, j - i + 1)
+    return ans
+
+'sliding window'
 def fruit_into_basket(fruits):
     hashmap = {}
 
@@ -1006,4 +1023,21 @@ def fruit_into_basket(fruits):
             L += 1
         ans = max(ans, R - L + 1)
     return ans
+
+'LC 383 Ransom Note'
+
+def canConstruct(ransomNote, magazine):
+    if len(ransomNote) > len(magazine):
+        return False
+    map = {}
+
+    for char in magazine:
+        map[char] = map.get(char, 0) + 1
+
+    for char in ransomNote:
+        if char not in map or map[char] <= 0:
+            return False
+        map[char] -= 1
+    return True
+
 
