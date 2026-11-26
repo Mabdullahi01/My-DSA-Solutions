@@ -1501,21 +1501,31 @@ def convert(s, numRows):
     return res
 
 'Maximum Subarray LC 53'
-# nums = [-2,1,-3,4,-1,2,1,-5,4]
 
 def maxSubarray(nums):
     maxSum = nums[0]
     currSum = 0
 
     for num in nums:
+        currSum += num
+        maxSum = max(maxSum, currSum)
+
         if currSum < 0:
             currSum = 0
 
-        currSum += num
-        maxSum = max(maxSum, currSum)
     return maxSum
- # T : O(n)
+# T : O(n)
+# nums = [-2,1,-3,4,-1,2,1,-5,4]
+'Kadanes Algorithm'
 
+def maxSubarray(nums):
+    res = nums[0]
+    currSum = nums[0]
+
+    for i in range(1, len(nums)):
+        currSum = max(currSum + nums[i], nums[i])
+        res = max(currSum, res)
+    return res
 
 
 'Trapping Rain water'
@@ -1724,6 +1734,39 @@ def maximum_number_Vowels(s, k):
 
 # T : O(n)
 # M : O(1)
+
+'LC 209 Minimum Size Subarray Sum '
+# target = 7, nums = [2,3,1,2,4,3]
+'Brute Force'
+def minSubarrayLen(nums, target):
+    # res = float('inf')
+    # for i in range(len(nums)):
+    #     currSum = 0
+    #     for j in range(i, len(nums)):
+    #         currSum += nums[j]
+    #         if currSum >= target:
+    #             res = min(res, j - i + 1)
+    #             break
+    # return res if res != float('inf') else 0
+
+    'Optimized, Sliding Window'
+
+    L = 0
+    res, currSum = float('inf'), 0
+
+    for R in range(len(nums)):
+        currSum += nums[R]
+
+        while currSum >= target:
+            res = min(res, R - L + 1)
+            currSum -= nums[L]
+            L += 1
+    return res if res != float('inf') else 0
+
+
+
+
+
 
 
 
