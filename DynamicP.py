@@ -322,6 +322,26 @@ def decodeWays(s):
     return dp[n]
 
 
+'LC 53 Maxiumum Subarray'
+'Kadane Algorithm'
+# nums = [-2,1,-3,4,-1,2,1,-5,4]
+
+def maxSubarray(nums):
+    # res = nums[0]
+    # currSum = nums[0]
+    #
+    # for i in range(1, len(nums)):
+    #     currSum = max(currSum + nums[i], nums[i])
+    #     res = max(currSum, res)
+    # return res
+    n = len(nums)
+    dp = [0] * n
+    dp[0] = nums[0]
+    for i in range(1, n):
+        dp[i] = max(dp[i - 1] + nums[i], nums[i])
+    return max(dp)
+
+
 
 
 
