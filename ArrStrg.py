@@ -1671,8 +1671,59 @@ def find_all_Anagrams(s, p):
 # M: O(k)
 
 
+'LC 1456'
+'Maximum number of vowels in a substring of Given length'
 
+def maxVowels(s, k):
+    vowels = {'a', 'e', 'i', 'o', 'u'}
 
+    res = 0
+    for R in range(len(s) - k + 1):
+        substring = s[R: R + k]
+        ans = 0
+        for char in substring:
+            if char in vowels:
+                ans += 1
+        res = max(res, ans)
+    return res
+
+'We can avoid slicing to improve the space complexity'
+
+def maxVowels(s, k):
+    vowels = {'a', 'e', 'i', 'o', 'u'}
+
+    res = 0
+    for L in range(len(s) - k + 1):
+        ans = 0
+        for R in range(L, L + k):
+            if s[R] in vowels:
+                ans += 1
+        res = max(res, ans)
+    return res
+
+# T : O(nk)
+# M : O(1)
+
+'Optimized Sliding window'
+# s = "abciiidef", k = 3
+def maximum_number_Vowels(s, k):
+    vowels = {'a', 'e', 'i', 'o', 'u'}
+    L, count, res = 0, 0, 0
+    for R in range(len(s)):
+        if s[R] in vowels:
+            count += 1
+
+        if R - L + 1 > k:
+            if s[L] in vowels:
+                count -= 1
+            L += 1
+        if count == k:
+            return count
+        res = max(res, count)
+    return res
+
+# T : O(n)
+# M : O(1)
 
 
 
