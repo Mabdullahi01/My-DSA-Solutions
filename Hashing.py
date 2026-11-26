@@ -1040,4 +1040,25 @@ def canConstruct(ransomNote, magazine):
         map[char] -= 1
     return True
 
+'LC 1512 Number of Good pairs'
+
+def goodPairs(nums):
+    'Brute Force'
+    # count = 0
+
+    # for i in range(len(nums) - 1):
+    #     for j in range(i + 1, len(nums)):
+    #         if nums[i] == nums[j]:
+    #             count += 1
+    # return count
+    'Frequency Hashmap'
+    dic = {}
+    count = 0
+    for num in nums:
+        if num in dic:
+            count += dic[num]
+        dic[num] = dic.get(num, 0) + 1
+    return count
+
+
 
